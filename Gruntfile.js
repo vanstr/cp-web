@@ -20,7 +20,9 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
-
+	
+  grunt.loadNpmTasks('grunt-connect-proxy');
+  
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -71,19 +73,43 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+	  proxies: [{
+		context: '/api', // the context of the data service
+		host: 'localhost', // wherever the data service is running
+		port: 8080, // the port that the data service is running on
+		rewrite: {
+        // the key '^/api' is a regex for the path to be rewritten
+        // the value is the context of the data service
+        '^/api': ''
+    }
+	  }],
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect.static(appConfig.app)
-            ];
-          }
+		  base: [
+			'.tmp',
+			'<%= yeoman.app %>'
+		  ],
+		  middleware: function (connect, options) {
+			var middlewares = [];
+			   
+			if (!Array.isArray(options.base)) {
+			  options.base = [options.base];
+			}
+			   
+			// Setup the proxy
+			middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+			middlewares.push(connect.static('.tmp'));
+			middlewares.push(connect().use('/bower_components', connect.static('./bower_components')));
+			middlewares.push(connect.static(appConfig.app));
+			// Serve static files
+			options.base.forEach(function(base) {
+			  middlewares.push(connect.static(base));
+			});
+	 
+			return middlewares;
+		  }
+          
         }
       },
       test: {
@@ -365,6 +391,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer',
+	  'configureProxies',
       'connect:livereload',
       'watch'
     ]);
