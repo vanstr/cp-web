@@ -11,11 +11,14 @@ angular.module('cpWebApp')
         .controller('SigninCtrl',
         ['$rootScope', '$scope', '$location', '$window', 'Auth', function ($rootScope, $scope, $location, $window, Auth) {
             $scope.rememberme = true;
+            $scope.user = Auth.currentUser;
+
+
             $scope.login = function () {
                 Auth.login({
-                            username: $scope.username,
+                            login: $scope.username,
                             password: $scope.password,
-                            rememberme: $scope.rememberme
+                            rememberme: $scope.rememberme // TODO implement in core
                         },
                         function (res) {
                             $location.path('/');
@@ -25,7 +28,4 @@ angular.module('cpWebApp')
                         });
             };
 
-            $scope.loginOauth = function (provider) {
-                $window.location.href = '/auth/' + provider;
-            };
         }]);

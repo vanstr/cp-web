@@ -8,36 +8,85 @@
  *
  * Main module of the application.
  */
-angular
-  .module('cpWebApp', [
-    'ngCookies',
-    'ngResource',
-    'ngRoute'
-  ])
-  .config(function ($httpProvider, $routeProvider) {
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .when('/welcome', {
-        templateUrl: 'views/welcome.html',
-        controller: 'WelcomeCtrl'
-      })
-      .when('/signin', {
-        templateUrl: 'views/signin.html',
-        controller: 'SigninCtrl'
-      })
-      .when('/signup', {
-        templateUrl: 'views/signup.html',
-        controller: 'SignupCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+angular.module('cpWebApp',
+        [
+            'ngCookies',
+            'ngResource',
+            'ngRoute'
+        ]).config(function ($httpProvider, $routeProvider) {
+            var access = routingConfig.accessLevels;
+
+            $routeProvider
+                    .when('/', {
+                        templateUrl: 'views/main.html',
+                        controller: 'MainCtrl',
+                        access: access.public
+                    })
+                    .when('/about', {
+                        templateUrl: 'views/about.html',
+                        controller: 'AboutCtrl',
+                        access: access.public
+                    })
+                    .when('/welcome', {
+                        templateUrl: 'views/welcome.html',
+                        controller: 'WelcomeCtrl',
+                        access: access.public
+                    })
+                    .when('/signin', {
+                        templateUrl: 'views/signin.html',
+                        controller: 'SigninCtrl',
+                        access: access.anon
+                    })
+                    .when('/signup', {
+                        templateUrl: 'views/signup.html',
+                        controller: 'SignupCtrl',
+                        access: access.anon
+                    })
+                    .when('/player', {
+                        templateUrl: 'views/player.html',
+                        controller: 'PlayerCtrl',
+                        access: access.user
+                    })
+                    .otherwise({
+                        redirectTo: '/',
+                        access: access.public
+                    });
+
+            var interceptor = ['$location', '$q', function ($location, $q) {
+                function success(response) {
+                    return response;
+                }
+
+                function error(response) {
+
+                    if (response.status === 401) {
+                        $location.path('/login');
+                        return $q.reject(response);
+                    }
+                    else {
+                        return $q.reject(response);
+                    }
+                }
+
+                return function (promise) {
+                    return promise.then(success, error);
+                }
+            }];
+
+            $httpProvider.responseInterceptors.push(interceptor);
+        })
+        .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+
+            $rootScope.$on("$routeChangeStart", function (event, next, current) {
+                $rootScope.error = null;
+                if (!Auth.authorize(next.access)) {
+                    if (Auth.isLoggedIn()) {
+                        $location.path('/');
+                    }
+                    else {
+                        $location.path('/signin');
+                    }
+                }
+            });
+
+        }]);
