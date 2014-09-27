@@ -5,110 +5,98 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/animate-css/animate.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="plugins/jPlayer/jplayer.flat.css" type="text/css"/>
-    <link rel="stylesheet" href="styles/animate.css" type="text/css"/>
-    <link rel="stylesheet" href="styles/font-awesome.min.css" type="text/css"/>
-    <link rel="stylesheet" href="styles/simple-line-icons.css" type="text/css"/>
-    <link rel="stylesheet" href="styles/font.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/jplayer.flat.css" type="text/css"/>
     <link rel="stylesheet" href="styles/app.css" type="text/css"/>
     <!-- endbuild -->
 
 </head>
 <body ng-app="cpWebApp">
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
-<![endif]-->
+    <!--[if lt IE 7]>
+    <p class="browsehappy">
+        You are using an <strong>outdated</strong>
+        browser. Please
+        <a href="http://browsehappy.com/">
+            upgrade
+    your browser
+        </a>
+        to improve your experience.
+    </p>
+    <![endif]-->
 
-<!-- Add your site or application content here -->
-<section class="vbox">
-    <header ng-include="'partials/header.html'" class="bg-white-only header header-md navbar navbar-fixed-top-xs" >
-    </header>
-    <section>
-        <section class="hbox stretch">
-            <!-- .aside -->
-            <aside class="bg-black dk aside hidden-print" id="nav"  ng-include="'partials/aside.html'"> </aside>
-            <!-- /.aside -->
+    <!-- Add your site or application content here -->
+    <section class="vbox">
+        <header ng-include="'partials/header.html'" class="bg-white-only header header-md navbar navbar-fixed-top-xs" ></header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black dk aside hidden-print" id="nav"  ng-include="'partials/aside.html'"></aside>
+                <!-- /.aside -->
 
-            <section id="content">
-                <section class="vbox" >
-                    <section class="scrollable" ng-view="" ></section>
+                <section id="content">
+                    <section class="vbox" >
+                        <section class="scrollable" ng-view="" ></section>
 
-                    <!--ng-show="false"-->
-                    <footer ng-include="'partials/footer_player.html'" class="footer bg-info dk"></footer>
-                </section>
-                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
+                        <!--ng-show="false"-->
+                        <footer ng-include="'partials/footer_player.html'" class="footer bg-info dk"></footer>
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
                    data-target="#nav,html"></a>
+                </section>
             </section>
         </section>
     </section>
-</section>
 
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+    <script src="bower_components/respond/dest/respond.src.js"></script>
+    <script src="bower_components/excanvas/excanvas.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
 
-    ga('create', 'UA-XXXXX-X');
-    ga('send', 'pageview');
-</script>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/jquery.slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/jquery.jplayer/index.js"></script>
+    <script src="bower_components/jplayer.playlist/index.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
 
-<!-- build:js(.) scripts/oldieshim.js -->
-<!--[if lt IE 9]>
-<script src="plugins/ie/html5shiv.js"></script>
-<script src="plugins/ie/respond.min.js"></script>
-<script src="plugins/ie/excanvas.js"></script>
-<script src="bower_components/json3/lib/json3.js"></script>
-<![endif]-->
-<!-- endbuild -->
+    <!-- build:js(.) scripts/custom.js -->
+    <script src="scripts/js/app/app.js"></script>
+    <script src="scripts/js/app/app.plugin.js"></script>
+    <script src="scripts/js/jPlayer/demo.js"></script>
+    <!-- endbuild -->
 
-<!-- build:js(.) scripts/vendor.js -->
-<!-- bower:js -->
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/es5-shim/es5-shim.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="bower_components/angular-route/angular-route.js"></script>
-<script src="bower_components/jquery.slimscroll/jquery.slimscroll.min.js"></script>
-<!-- endbower -->
-<script src="plugins/app/app.js"></script>
-<script src="plugins/app/app.plugin.js"></script>
-<script type="text/javascript" src="plugins/jPlayer/jquery.jplayer.min.js"></script>
-<script type="text/javascript" src="plugins/jPlayer/add-on/jplayer.playlist.min.js"></script>
-<script type="text/javascript" src="plugins/jPlayer/demo.js"></script>
-<!-- endbuild -->
-
-
-
-
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
-<script src="scripts/routingConfig.js"></script>
-<script src="scripts/app.js"></script>
-<script src="scripts/controllers/main.js"></script>
-<script src="scripts/controllers/about.js"></script>
-<script src="scripts/controllers/welcome.js"></script>
-<script src="scripts/controllers/signin.js"></script>
-<script src="scripts/controllers/signup.js"></script>
-<script src="scripts/services/auth.js"></script>
-<script src="scripts/controllers/player.js"></script>
-<!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/routingConfig.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/welcome.js"></script>
+    <script src="scripts/controllers/signin.js"></script>
+    <script src="scripts/controllers/signup.js"></script>
+    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/controllers/player.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
