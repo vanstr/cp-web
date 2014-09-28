@@ -18,5 +18,7 @@ angular.module('cpWebApp')
                 $rootScope.error = "Failed to logout";
             });
     };
+
     $scope.accessRoles = Auth.accessRoles;
+    $scope.accessLevels = Auth.accessLevels;
   }]);

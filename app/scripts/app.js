@@ -78,6 +78,7 @@ angular.module('cpWebApp',
         .run(['$rootScope', '$location', '$log', 'Auth', function ($rootScope, $location, $log, Auth) {
 
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
+                $log.debug(next);
                 $rootScope.error = null;
                 if (!Auth.authorize(next.access)) {
                     if (Auth.isLoggedIn()) {

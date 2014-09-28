@@ -41,7 +41,7 @@ angular.module('cpWebApp')
             return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
         },
         register: function(user, success, error) {
-            $http.post('/api/register', user).success(function(res) {
+            $http.post('/api/user', user).success(function(res) {
                 changeUser(res);
                 success();
             }).error(error);

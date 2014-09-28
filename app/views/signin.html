@@ -7,14 +7,17 @@
                 <strong>Sign in to get in touch</strong>
             </div>
 
-            <form ng-submit="login()" name="loginForm" role="form">
+            <form ng-submit="login()" name="signInForm" role="form">
                 <div class="form-group">
                     <input type="text" data-ng-model="username" placeholder="Username" required="required" autofocus="autofocus" class="form-control rounded input-lg text-center no-border">
                 </div>
                 <div class="form-group">
                     <input type="password" data-ng-model="password" placeholder="Password" class="form-control rounded input-lg text-center no-border">
                 </div>
-                <button type="submit" data-ng-disabled="loginForm.$invalid" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">Sign in</span></button>
+                <button type="submit" data-ng-disabled="signInnForm.$invalid" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded">
+                    <i class="icon-arrow-right pull-right"></i>
+                    <span class="m-r-n-lg">Sign in</span>
+                </button>
 
 
                 <div>Or sign in with:
