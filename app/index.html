@@ -48,7 +48,7 @@
                         <section class="scrollable" ng-view="" ></section>
 
                         <!--ng-show="false"-->
-                        <footer ng-include="'partials/footer_player.html'" class="footer bg-info dk"></footer>
+                        <footer access-level ng-include="'partials/footer_player.html'" class="footer bg-info dk"></footer>
                     </section>
                     <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
                    data-target="#nav,html"></a>
@@ -95,8 +95,11 @@
     <script src="scripts/controllers/welcome.js"></script>
     <script src="scripts/controllers/signin.js"></script>
     <script src="scripts/controllers/signup.js"></script>
+    <script src="scripts/controllers/header.js"></script>
     <script src="scripts/services/auth.js"></script>
     <script src="scripts/controllers/player.js"></script>
+    <script src="scripts/services/session.js"></script>    
+    <script src="scripts/directives/accesslevel.js"></script>
     <!-- endbuild -->
 </body>
 </html>

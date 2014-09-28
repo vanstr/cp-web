@@ -75,12 +75,13 @@ angular.module('cpWebApp',
 
             $httpProvider.responseInterceptors.push(interceptor);
         })
-        .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+        .run(['$rootScope', '$location', '$log', 'Auth', function ($rootScope, $location, $log, Auth) {
 
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
                 $rootScope.error = null;
                 if (!Auth.authorize(next.access)) {
                     if (Auth.isLoggedIn()) {
+                        console.log("isLoggedIn");
                         $location.path('/');
                     }
                     else {
