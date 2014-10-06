@@ -8,10 +8,11 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-  .controller('PlayerCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+        .controller('PlayerCtrl', ['$scope', 'Player', function ($scope, Player) {
+
+            Player.getAllSongs().then(function(pl) {
+                console.log(pl);
+                $scope.playlist = pl;
+            });
+
+        }]);
