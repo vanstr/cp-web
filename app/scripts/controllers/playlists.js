@@ -10,7 +10,7 @@
 angular.module('cpWebApp')
     .controller('PlayListsCtrl', ['$scope', 'Player', function ($scope, Player) {
 
-        var playLists = PlayLists.getPlayLists();
+        var playLists = Player.getPlayLists();
         console.log(playLists);
 
     }]);
