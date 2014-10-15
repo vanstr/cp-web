@@ -8,26 +8,22 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-        .service('Player', function player(content, $q, $http) {
+        .service('Player', function player($q, $http) {
             var playList;
 
-            function savePlayList(data) {
-                console.log(data);
-                playList = data;
-            }
-            //content.listAllSongs(savePlayList);
-            var getAllSongs = function() {
+
+            var listAllSongs = function() {
                 var deferred = $q.defer();
 
-                $http.get('/api/api/getPlayList ').success(function (playList) {
-                    deferred.resolve(playList);
-                    //savePlayList(playList);
+                $http.get('/api/api/getPlayList ').success(function (data) {
+                    deferred.resolve(data);
+                    playList = data
                 }).error();
 
                 return deferred.promise;
             };
 
             return {
-                getAllSongs: getAllSongs
+                listAllSongs: listAllSongs
             }
         });

@@ -16,6 +16,10 @@ angular.module('cpWebApp',
         ]).config(function ($httpProvider, $routeProvider) {
             var access = routingConfig.accessLevels;
 
+            var listAllSongs = function (Player) {
+                return Player.listAllTags();
+            }
+
             $routeProvider
                     .when('/', {
                         templateUrl: 'views/main.html',
@@ -45,7 +49,10 @@ angular.module('cpWebApp',
                     .when('/player', {
                         templateUrl: 'views/player.html',
                         controller: 'PlayerCtrl',
-                        access: access.user
+                        access: access.user,
+                        resolve: {
+                            data: listAllSongs
+                        }
                     })
                     .otherwise({
                         redirectTo: '/',
