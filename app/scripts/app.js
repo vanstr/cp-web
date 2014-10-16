@@ -16,8 +16,8 @@ angular.module('cpWebApp',
         ]).config(function ($httpProvider, $routeProvider) {
             var access = routingConfig.accessLevels;
 
-            var listAllSongs = function (Player) {
-                return Player.listAllTags();
+            var getAllSongs = function (audioContentService) {
+                return audioContentService.getAllSongs;
             }
 
             $routeProvider
@@ -41,12 +41,8 @@ angular.module('cpWebApp',
                         controller: 'PlayerCtrl',
                         access: access.user,
                         resolve: {
-                            data: listAllSongs
+                            data: getAllSongs
                         }
-                    })
-                    .when('/view/temp', {
-                      templateUrl: 'views/view/temp.html',
-                      controller: 'ViewTempCtrl'
                     })
                     .otherwise({
                         redirectTo: '/',
@@ -76,13 +72,13 @@ angular.module('cpWebApp',
 
             $httpProvider.responseInterceptors.push(interceptor);
         })
-        .run(['$rootScope', '$location', '$log', 'Auth', function ($rootScope, $location, $log, Auth) {
+        .run(['$rootScope', '$location', '$log', 'authService', function ($rootScope, $location, $log, authService) {
 
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
                 $log.debug(next);
                 $rootScope.error = null;
-                if (!Auth.authorize(next.access)) {
-                    if (Auth.isLoggedIn()) {
+                if (!authService.authorize(next.access)) {
+                    if (authService.isLoggedIn()) {
                         console.log("isLoggedIn");
                         $location.path('/');
                     }

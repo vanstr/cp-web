@@ -7,7 +7,7 @@
  * # accessLevel
  */
 angular.module('cpWebApp')
-        .directive('accessLevel', ['Auth', function( Auth) {
+        .directive('accessLevel', ['authService', function( authService) {
             return {
                 restrict: 'A',
                 link: function($scope, element, attrs) {
@@ -16,9 +16,9 @@ angular.module('cpWebApp')
                       , userRole
                       , accessLevel;
                     // by default access only for registred
-                    if(!accessLevel) accessLevel = Auth.accessLevels.user;
+                    if(!accessLevel) accessLevel = authService.accessLevels.user;
 
-                    $scope.user = Auth.user;
+                    $scope.user = authService.user;
                     $scope.$watch('user', function(user) {
                         userRole = user.role;
                         updateCSS();
@@ -31,7 +31,7 @@ angular.module('cpWebApp')
 
                     function updateCSS() {
                         if(userRole && accessLevel) {
-                            if(!Auth.authorize(accessLevel, userRole))
+                            if(!authService.authorize(accessLevel, userRole))
                                 element.css('display', 'none');
                             else
                                 element.css('display', prevDisp);

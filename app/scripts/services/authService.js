@@ -2,23 +2,23 @@
 
 /**
  * @ngdoc service
- * @name cpWebApp.Auth
+ * @name cpWebApp.authService
  * @description
- * # Auth
+ * # authService
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-  .service('Auth', function($http, $log, session){
+  .service('authService', function($http, $log, sessionService){
 
-    $log.debug(session);
+    $log.debug(sessionService);
 
     var accessLevels = routingConfig.accessLevels,
         userRoles = routingConfig.userRoles,
         currentUser = { id: '', username: '', role: userRoles.public };
 
-    if( session['userId'] ){
-        $log.debug("get user from session");
-        currentUser = { id: session['userId'], username: session['username'], role: userRoles.user };
+    if( sessionService['userId'] ){
+        $log.debug("get user from sessionService");
+        currentUser = { id: sessionService['userId'], username: sessionService['username'], role: userRoles.user };
     }
 
 
@@ -52,7 +52,10 @@ angular.module('cpWebApp')
                 user.role = userRoles.user;
                 changeUser(user);
                 success(user);
-            }).error(error);
+            }).error(function(){
+                $log.error("Failed to logout");
+                error();
+            });
         },
         logout: function(success, error) {
             $http.get('/api/logout').success(function(){

@@ -8,9 +8,9 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-        .controller('PlayerCtrl', ['$scope', 'Player', function ($scope, Player) {
+        .controller('PlayerCtrl', ['$scope', 'audioContentService', function ($scope, audioContentService) {
 
-            Player.getAllSongs().then(function(pl) {
+            audioContentService.getAllSongs().then(function(pl) {
                 console.log(pl);
                 $scope.playlist = pl;
             });

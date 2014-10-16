@@ -12,7 +12,7 @@ angular.module('cpWebApp')
                 template: '<div></div>',
                 restrict: 'E',
                 scope: {
-                    playlist: '=',
+                    playlist: '='
                 },
                 link: function postLink(scope, element, attrs) {
                     console.log(scope.playlist)

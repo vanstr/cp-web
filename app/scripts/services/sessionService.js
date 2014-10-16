@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-	.service('session', ['$cookies', function($cookies) {
+	.service('sessionService', ['$cookies', function($cookies) {
 			var session = {};
 
 			if ($cookies['PLAY_SESSION']) {
