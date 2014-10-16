@@ -17,7 +17,8 @@ angular.module('cpWebApp',
             var access = routingConfig.accessLevels;
 
             var getAllSongs = function (audioContentService) {
-                return audioContentService.getAllSongs;
+                console.log("wait for all songs");
+                return audioContentService.getAllSongs();
             }
 
             $routeProvider

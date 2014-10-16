@@ -9,10 +9,8 @@
  */
 angular.module('cpWebApp')
         .controller('PlayerCtrl', ['$scope', 'audioContentService', function ($scope, audioContentService) {
-
-            audioContentService.getAllSongs().then(function(pl) {
-                console.log(pl);
-                $scope.playlist = pl;
-            });
+            $scope.audioContentService = audioContentService;
+            $scope.playlist = audioContentService.allSongs;
+            console.log(audioContentService.allSongs);
 
         }]);
