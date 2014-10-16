@@ -26,16 +26,6 @@ angular.module('cpWebApp',
                         controller: 'MainCtrl',
                         access: access.public
                     })
-                    .when('/about', {
-                        templateUrl: 'views/about.html',
-                        controller: 'AboutCtrl',
-                        access: access.public
-                    })
-                    .when('/welcome', {
-                        templateUrl: 'views/welcome.html',
-                        controller: 'WelcomeCtrl',
-                        access: access.public
-                    })
                     .when('/signin', {
                         templateUrl: 'views/signin.html',
                         controller: 'SigninCtrl',
@@ -53,6 +43,10 @@ angular.module('cpWebApp',
                         resolve: {
                             data: listAllSongs
                         }
+                    })
+                    .when('/view/temp', {
+                      templateUrl: 'views/view/temp.html',
+                      controller: 'ViewTempCtrl'
                     })
                     .otherwise({
                         redirectTo: '/',
