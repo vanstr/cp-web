@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-    .service('Player', function player(content, $q, $http) {
+        .service('Player', function ($q, $http) {
         console.log("PLayer service");
         var playList;
 
@@ -20,7 +20,7 @@ angular.module('cpWebApp')
         var getAllSongs = function() {
             var deferred = $q.defer();
 
-            $http.get('/api/api/getPlayList ').success(function (playList) {
+            $http.get('/api/api/playList').success(function (playList) {
                 deferred.resolve(playList);
                 //savePlayList(playList);
             }).error();
@@ -30,7 +30,7 @@ angular.module('cpWebApp')
 
         var getPlayLists = function() {
             var deferred = $q.defer();
-            $http.get('/api/api/getPlayLists').success(function (playLists){
+            $http.get('/api/api/playLists').success(function (playLists){
                 deferred.resolve(playLists);
             }).error();
 
