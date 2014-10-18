@@ -16,11 +16,23 @@ angular.module('cpWebApp')
             self.allSongs = null;
             self.playLists = null;
 
+            self.getAllSongsFromCashe = function () {
+                $log.debug("getAllSongsFromCashe:");
+                if (self.allSongs !== null) {
+                    var deferred = $q.defer();
+                    deferred.resolve(self.allSongs);
+                    return deferred.promise;
+                }else {
+                    return self.getAllSongs();
+                }
+            };
+
             //  TODO in cp-core better rename getPlayList to getAllSongs
             self.getAllSongs = function () {
                 $log.debug("getAllSongs:");
                 var deferred = $q.defer();
-                $http.get('/api/api/playList ').success(function (data) {
+                var apiUrl = '/api/api/playList';
+                $http.get(apiUrl).success(function (data) {
                     $log.debug(data);
                     self.allSongs = data;
                     deferred.resolve(data);

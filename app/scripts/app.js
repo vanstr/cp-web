@@ -18,7 +18,7 @@ angular.module('cpWebApp',
 
             var getAllSongs = function (audioContentService) {
                 console.log("wait for all songs");
-                return audioContentService.getAllSongs();
+                return audioContentService.getAllSongsFromCashe();
             }
 
             $routeProvider
