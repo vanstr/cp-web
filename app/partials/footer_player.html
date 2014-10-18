@@ -1,3 +1,5 @@
+
+<div ng-controller="FooterPlayerCtrl as fpc">
 <div id="jp_container_N">
     <div class="jp-type-playlist">
         <div id="jplayer_N" class="jp-jplayer hide"></div>
@@ -65,5 +67,9 @@
         </div>
     </div>
 </div>
+    {{myVar}}
+/
+    {{audioPlayer.getCurrentSong()}}
 
-    <init-playlist playlist="'value'"></init-playlist>
+    <init-playlist song="audioPlayer.getCurrentSong()"></init-playlist>
+</div>

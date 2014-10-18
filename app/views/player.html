@@ -42,11 +42,11 @@
 
             <ul class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
 
-                <li class="list-group-item" ng-repeat="song in playlist.songs">
+                <li class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isPlaying(song)}">
 
                     <div class="jp-play-me m-r-sm pull-left">
-                        <i class="icon-control-play text"></i>
-                        <i class="icon-control-pause text-active"></i>
+                        <i ng-click="play(song)" class="icon-control-play" ng-class="{'text-active': isPlaying(song)}"></i>
+                        <i ng-click="pause()" class="icon-control-pause" ng-class="{'text-active': false == isPlaying(song)}"></i>
                     </div>
 
                     <div class="pull-right m-l">

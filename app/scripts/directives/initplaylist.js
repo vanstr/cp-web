@@ -7,106 +7,61 @@
  * # initPlaylist
  */
 angular.module('cpWebApp')
-        .directive('initPlaylist', function () {
+        .directive('initPlaylist', ['audioPlayer', function (audioPlayer) {
             return {
                 template: '<div></div>',
                 restrict: 'E',
                 scope: {
-                    playlist: '='
+                    song: '='
                 },
                 link: function postLink(scope, element, attrs) {
-                    console.log(scope.playlist)
+                    console.log("link");
+                    console.log(scope.song);
+                    var playerDom = $("#jplayer_N");
 
+                    function initJPlayer() {
+                        playerDom.jPlayer("destroy");
+                        playerDom.jPlayer({
+                            ready: function (event) {
+                                console.log("JPlayer initialized");
+                            },
+                            ended: function () {
+                                //TODO self.next(); self.play();
+                            },
+                            cssSelectorAncestor: "#jp_container_N",
+                            supplied: "mp3"
+                        });
+                    }
+                    function updateJPlayer() {
+                        playerDom.jPlayer("clearMedia");
+                        setSongToJPlayer(audioPlayer.getCurrentSong());
 
-                    var myPlaylist = new jPlayerPlaylist({
-                        jPlayer: "#jplayer_N",
-                        cssSelectorAncestor: "#jp_container_N"
-                    }, [
-                        {
-                            title: "My Busted Chump",
-                            artist: "Russ",
-                            mp3: "http://stream.get-tune.net/listen/245221177/151659966/3566101381/fc234984ecd9da3a/Rodion_Gazmanov_-_Gravitaciya_(get-tune.net).mp3",
-                            poster: "images/m0.jpg"
-                        },
-                        {
-                            title: "Sad but true",
-                            artist: "Metallica",
-                            mp3: "http://stream.get-tune.net/listen/93104458/112783764/3566101381/fc234984ecd9da3a/Metalika_-_sda_but_true_(get-tune.net).mp3",
-                            poster: "images/m0.jpg"
-                        },
-                        {
-                            title: "Cloudless Days",
-                            artist: "ADG3 Studios",
-                            mp3: "http://flatfull.com/themes/assets/musics/adg3com_cloudlessdays.mp3",
-                            poster: "images/m0.jpg"
-                        },
-                        {
-                            title: "Core Issues",
-                            artist: "Studios",
-                            mp3: "http://flatfull.com/themes/assets/musics/adg3com_coreissues.mp3",
-                            poster: "images/m0.jpg"
-                        },
-                        {
-                            title: "Cryptic Psyche",
-                            artist: "ADG3",
-                            mp3: "http://flatfull.com/themes/assets/musics/adg3com_crypticpsyche.mp3",
-                            poster: "images/m0.jpg"
-                        },
-                        {
-                            title: "Electro Freak",
-                            artist: "Studios",
-                            mp3: "http://flatfull.com/themes/assets/musics/adg3com_electrofreak.mp3",
-                            poster: "images/m0.jpg"
-                        },
-                        {
-                            title: "Freeform",
-                            artist: "ADG",
-                            mp3: "http://flatfull.com/themes/assets/musics/adg3com_freeform.mp3",
-                            poster: "images/m0.jpg"
+                        if( audioPlayer.isPlaying() ){
+                            playerDom.jPlayer("play");
+                        }else{
+                            playerDom.jPlayer("pause");
                         }
-                    ], {
-                        playlistOptions: {
-                            enableRemoveControls: true,
-                            autoPlay: true
-                        },
-                        swfPath: "js/jPlayer",
-                        supplied: "webmv, ogv, m4v, oga, mp3",
-                        smoothPlayBar: true,
-                        keyEnabled: true,
-                        audioFullScreen: false
-                    });
+                    }
 
-                    $(document).on($.jPlayer.event.pause, myPlaylist.cssSelector.jPlayer, function () {
-                        $('.musicbar').removeClass('animate');
-                        $('.jp-play-me').removeClass('active');
-                        $('.jp-play-me').parent('li').removeClass('active');
-                    });
+                    function setSongToJPlayer(song) {
+                        playerDom.jPlayer("setMedia", {
+                            "mp3": song.url, //TODO
+                            "title":song.title
+                        });
+                    }
 
-                    $(document).on($.jPlayer.event.play, myPlaylist.cssSelector.jPlayer, function () {
-                        $('.musicbar').addClass('animate');
-                    });
+                    initJPlayer();
 
-                    $(document).on('click', '.jp-play-me', function (e) {
-                        e && e.preventDefault();
-                        var $this = $(e.target);
-                        if (!$this.is('a')) {
-                            $this = $this.closest('a');
+//                    updateJPlayer(scope.song);
+                    scope.$watch('song', function (newValue, oldValue) {
+                        console.log("Check song o: " + oldValue + " n: " + newValue);
+                        if (newValue != oldValue) {
+                            console.log("action");
+                            updateJPlayer();
                         }
+                    }, true)
 
-                        $('.jp-play-me').not($this).removeClass('active');
-                        $('.jp-play-me').parent('li').not($this.parent('li')).removeClass('active');
-
-                        $this.toggleClass('active');
-                        $this.parent('li').toggleClass('active');
-                        if (!$this.hasClass('active')) {
-                            myPlaylist.pause();
-                        }
-                        else {
-                            var i = Math.floor(Math.random() * (1 + 7 - 1));
-                            myPlaylist.play(i);
-                        }
-                    });
 
                 }
             };
-        });
+        }]);
