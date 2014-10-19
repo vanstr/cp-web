@@ -34,11 +34,12 @@ angular.module('cpWebApp')
             self.setCurrentSong = function (song) {
                 // search song in current playlist
                 var foundSongIndex = -1;
-                if (self.currentPlayList) {
-                    var length = self.currentPlayList.length;
+                if (self.currentPlayList && self.currentPlayList.songs) {
+                    var length = self.currentPlayList.songs.length;
                     for (var i = 0; i < length; i++) {
-                        var s = self.currentPlayList[i];
+                        var s = self.currentPlayList.songs[i];
                         if (angular.equals(s, song)) {
+                            console.log("Song found");
                             foundSongIndex = i;
                             break;
                         }
@@ -50,9 +51,10 @@ angular.module('cpWebApp')
                     currentSongN = foundSongIndex;
                 }
                 else {
+                    console.log("Song not found in playlist");
                     // create new playlist of 1 song
-                    self.originalPlayList = [song];
-                    self.currentPlayList = [song];
+                    self.originalPlayList = { "songs" :[song], "id": 0, "name": "unnamed"};
+                    self.currentPlayList = { "songs" :[song], "id": 0, "name": "unnamed"};
                     currentSongN = 0;
                 }
                 playerState++;
@@ -82,19 +84,35 @@ angular.module('cpWebApp')
 
 
             self.next = function (autoPlay) {
-                var plLength = self.currentPlayList.length;
+                var plLength = self.currentPlayList.songs.length;
                 console.log("PlLength: " + plLength);
 
-                var nextSongNumber = self.currentNumber + 1;
+                var nextSongNumber = currentSongN + 1;
                 if (nextSongNumber >= plLength) {
                     console.log("it is last song of playlist or incorrect value, select first");
                     nextSongNumber = 0;
                 }
 
-                currentSong = self.currentPlayList[nextSongNumber];
+                currentSong = self.currentPlayList.songs[nextSongNumber];
                 currentSongN = nextSongNumber;
-                playing = autoPlay;
-                playerState++;
+
+                self.setPlaying(autoPlay);
+            };
+
+            self.prev = function (autoPlay) {
+                var plLength = self.currentPlayList.songs.length;
+                console.log("PlLength: " + plLength);
+
+                var nextSongNumber = currentSongN - 1;
+                if (nextSongNumber < 0) {
+                    console.log("it is first song of playlist or incorrect value, select last");
+                    nextSongNumber = plLength -1;
+                }
+
+                currentSong = self.currentPlayList.songs[nextSongNumber];
+                currentSongN = nextSongNumber;
+
+                self.setPlaying(autoPlay);
             };
 
             // TODO self.prev

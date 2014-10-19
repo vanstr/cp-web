@@ -14,6 +14,8 @@ angular.module('cpWebApp')
             $scope.playlist = audioContentService.allSongs;
             console.log(audioContentService.allSongs);
 
+            audioPlayer.currentPlayList = audioContentService.allSongs;
+
             $scope.isPlaying = function (song) {
                return audioPlayer.isPlaying() && $scope.isSelected(song);
             };
