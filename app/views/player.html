@@ -42,7 +42,7 @@
 
             <ul class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
 
-                <li class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isPlaying(song)}">
+                <li class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isSelected(song)}">
 
                     <div class="jp-play-me m-r-sm pull-left">
                         <i ng-click="play(song)" class="icon-control-play" ng-class="{'text-active': isPlaying(song)}"></i>
@@ -60,20 +60,6 @@
                     </div>
                 </li>
 
-                <li class="list-group-item active">
-                    <div class="pull-right m-l">
-                        <a href="#" class="m-r-sm"><i class="icon-cloud-download"></i></a>
-                        <a href="#"><i class="icon-plus"></i></a>
-                    </div>
-                    <a href="#" class="jp-play-me m-r-sm pull-left active">
-                        <i class="icon-control-play text"></i>
-                        <i class="icon-control-pause text-active"></i>
-                    </a>
-                    <div class="clear text-ellipsis">
-                        <span>Vestibulum id ligula porta</span>
-                        <span class="text-muted"> -- 04:15</span>
-                    </div>
-                </li>
 
 
             </ul>

@@ -4,9 +4,7 @@
     <div class="jp-type-playlist">
         <div id="jplayer_N" class="jp-jplayer hide"></div>
         <div class="jp-gui">
-            <div class="jp-video-play hide">
-                <a class="jp-video-play-icon">play</a>
-            </div>
+
             <div class="jp-interface">
                 <div class="jp-controls">
                     <div><a class="jp-previous"><i class="icon-control-rewind i-lg"></i></a></div>
@@ -65,11 +63,10 @@
             To play the media you will need to either update your browser to a recent version or update your <a
                 href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
         </div>
+
     </div>
 </div>
-    {{myVar}}
-/
-    {{audioPlayer.getCurrentSong()}}
+    Playing: {{audioPlayer.getCurrentSong()}}
 
-    <init-playlist song="audioPlayer.getCurrentSong()"></init-playlist>
+    <init-jplayer state="audioPlayer.getPlayerState()"></init-jplayer>
 </div>

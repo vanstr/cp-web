@@ -15,13 +15,13 @@ angular.module('cpWebApp')
             console.log(audioContentService.allSongs);
 
             $scope.isPlaying = function (song) {
-                // TODO could be optimized, lighter comparing
-                if (angular.equals(audioPlayer.getCurrentSong(), song)) {
-                    return true;
-                }
-                return false;
+               return audioPlayer.isPlaying() && $scope.isSelected(song);
+            };
 
-            }
+            $scope.isSelected = function (song) {
+                // TODO could be optimized, lighter comparing
+                return angular.equals(audioPlayer.getCurrentSong(), song);
+            };
 
             $scope.play = function (song) {
                 audioPlayer.setCurrentSong(song);

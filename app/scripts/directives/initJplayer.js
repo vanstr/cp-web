@@ -7,17 +7,17 @@
  * # initPlaylist
  */
 angular.module('cpWebApp')
-        .directive('initPlaylist', ['audioPlayer', function (audioPlayer) {
+        .directive('initJplayer', ['audioPlayer', function (audioPlayer) {
             return {
                 template: '<div></div>',
                 restrict: 'E',
                 scope: {
-                    song: '='
+                    state: '='
                 },
                 link: function postLink(scope, element, attrs) {
-                    console.log("link");
-                    console.log(scope.song);
+
                     var playerDom = $("#jplayer_N");
+                    var song = null;
 
                     function initJPlayer() {
                         playerDom.jPlayer("destroy");
@@ -33,27 +33,32 @@ angular.module('cpWebApp')
                         });
                     }
                     function updateJPlayer() {
-                        playerDom.jPlayer("clearMedia");
-                        setSongToJPlayer(audioPlayer.getCurrentSong());
+
+                        if( !angular.equals(song, audioPlayer.getCurrentSong()) ){
+                            setSongToJPlayer(audioPlayer.getCurrentSong());
+                        }
 
                         if( audioPlayer.isPlaying() ){
                             playerDom.jPlayer("play");
                         }else{
                             playerDom.jPlayer("pause");
                         }
+                        console.log("isPlaying:" +  audioPlayer.isPlaying());
                     }
 
-                    function setSongToJPlayer(song) {
+                    function setSongToJPlayer(newSong) {
+                        console.log("setSongToJPlayer");
+                        playerDom.jPlayer("clearMedia");
+                        song = newSong;
                         playerDom.jPlayer("setMedia", {
                             "mp3": song.url, //TODO
-                            "title":song.title
+                            "title":song.fileName
                         });
                     }
 
                     initJPlayer();
 
-//                    updateJPlayer(scope.song);
-                    scope.$watch('song', function (newValue, oldValue) {
+                    scope.$watch('state', function (newValue, oldValue) {
                         console.log("Check song o: " + oldValue + " n: " + newValue);
                         if (newValue != oldValue) {
                             console.log("action");

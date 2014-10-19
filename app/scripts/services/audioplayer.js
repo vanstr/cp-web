@@ -19,10 +19,17 @@ angular.module('cpWebApp')
 
             var playing = false;
 
+            // After each action state value increases,
+            // initJplayer triggers changes by this value
+            var playerState = 1;
+
             self.originalPlayList = null;
 
             self.currentPlayList = null;
 
+            self.getPlayerState = function(){
+                return playerState;
+            };
 
             self.setCurrentSong = function (song) {
                 // search song in current playlist
@@ -48,6 +55,7 @@ angular.module('cpWebApp')
                     self.currentPlayList = [song];
                     currentSongN = 0;
                 }
+                playerState++;
             };
 
             self.getCurrentSong = function () {
@@ -62,9 +70,11 @@ angular.module('cpWebApp')
             self.playPause = function () {
                 console.log("start playing");
                 playing = !playing;
+                playerState++;
             };
             self.setPlaying = function (play) {
                 playing = play;
+                playerState++;
             };
             self.isPlaying = function () {
                 return playing;
@@ -84,6 +94,7 @@ angular.module('cpWebApp')
                 currentSong = self.currentPlayList[nextSongNumber];
                 currentSongN = nextSongNumber;
                 playing = autoPlay;
+                playerState++;
             };
 
             // TODO self.prev
