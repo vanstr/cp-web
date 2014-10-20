@@ -16,20 +16,15 @@ angular.module('cpWebApp',
         ]).config(function ($httpProvider, $routeProvider) {
             var access = routingConfig.accessLevels;
 
+            var getAllSongs = function (audioContentService) {
+                console.log("wait for all songs");
+                return audioContentService.getAllSongsFromCashe();
+            }
+
             $routeProvider
                     .when('/', {
                         templateUrl: 'views/main.html',
                         controller: 'MainCtrl',
-                        access: access.public
-                    })
-                    .when('/about', {
-                        templateUrl: 'views/about.html',
-                        controller: 'AboutCtrl',
-                        access: access.public
-                    })
-                    .when('/welcome', {
-                        templateUrl: 'views/welcome.html',
-                        controller: 'WelcomeCtrl',
                         access: access.public
                     })
                     .when('/signin', {
@@ -45,7 +40,10 @@ angular.module('cpWebApp',
                     .when('/player', {
                         templateUrl: 'views/player.html',
                         controller: 'PlayerCtrl',
-                        access: access.user
+                        access: access.user,
+                        resolve: {
+                            data: getAllSongs
+                        }
                     })
                     .otherwise({
                         redirectTo: '/',
@@ -75,13 +73,13 @@ angular.module('cpWebApp',
 
             $httpProvider.responseInterceptors.push(interceptor);
         })
-        .run(['$rootScope', '$location', '$log', 'Auth', function ($rootScope, $location, $log, Auth) {
+        .run(['$rootScope', '$location', '$log', 'authService', function ($rootScope, $location, $log, authService) {
 
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
                 $log.debug(next);
                 $rootScope.error = null;
-                if (!Auth.authorize(next.access)) {
-                    if (Auth.isLoggedIn()) {
+                if (!authService.authorize(next.access)) {
+                    if (authService.isLoggedIn()) {
                         console.log("isLoggedIn");
                         $location.path('/');
                     }

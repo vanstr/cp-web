@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: WelcomeCtrl', function () {
+describe('Controller: CommonFooterplayerCtrl', function () {
 
   // load the controller's module
   beforeEach(module('cpWebApp'));
 
-  var WelcomeCtrl,
+  var CommonFooterplayerCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    WelcomeCtrl = $controller('WelcomeCtrl', {
+    CommonFooterplayerCtrl = $controller('CommonFooterplayerCtrl', {
       $scope: scope
     });
   }));

@@ -77,29 +77,31 @@
     <script src="bower_components/jquery.slimscroll/jquery.slimscroll.min.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/jquery.jplayer/index.js"></script>
-    <script src="bower_components/jplayer.playlist/index.js"></script>
+    <!--<script src="bower_components/jplayer.playlist/index.js"></script>-->
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js(.) scripts/custom.js -->
     <script src="scripts/js/app/app.js"></script>
     <script src="scripts/js/app/app.plugin.js"></script>
-    <script src="scripts/js/jPlayer/demo.js"></script>
+
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/routingConfig.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/controllers/welcome.js"></script>
     <script src="scripts/controllers/signin.js"></script>
     <script src="scripts/controllers/signup.js"></script>
-    <script src="scripts/controllers/header.js"></script>
-    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/controllers/common/header.js"></script>
     <script src="scripts/controllers/player.js"></script>
-    <script src="scripts/services/session.js"></script>    
+    <script src="scripts/services/authService.js"></script>
+    <script src="scripts/services/sessionService.js"></script>
     <script src="scripts/directives/accesslevel.js"></script>
+    <script src="scripts/directives/initJplayer.js"></script>
+    <script src="scripts/services/audioContentService.js"></script>
+    <script src="scripts/services/audioplayer.js"></script>
+    <script src="scripts/controllers/common/footerplayer.js"></script>
     <!-- endbuild -->
 </body>
 </html>

@@ -9,13 +9,13 @@
  */
 angular.module('cpWebApp')
     .controller('SigninCtrl',
-        ['$rootScope', '$scope', '$location', '$window', 'Auth', function ($rootScope, $scope, $location, $window, Auth) {
+        ['$rootScope', '$scope', '$location', '$window', 'authService', function ($rootScope, $scope, $location, $window, authService) {
             $scope.rememberme = true;
-            $scope.user = Auth.currentUser;
+            $scope.user = authService.currentUser;
 
 
             $scope.login = function () {
-                Auth.login({
+                authService.login({
                             login: $scope.username,
                             password: $scope.password,
                             rememberme: $scope.rememberme // TODO implement in core

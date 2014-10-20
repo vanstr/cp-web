@@ -1,1 +1,75 @@
-<p>This is the player view.</p>
+<!-- side content -->
+<aside class="col-sm-6 no-padder" id="sidebar">
+    <section class="vbox animated fadeInUp">
+        <section class="">
+
+            <h3>Demo functional</h3>
+            <button ng-click="audioContentService.getAllSongs()">
+                getAllSongs
+            </button>
+            <button ng-click="audioContentService.getPlayListById(1)">
+                getPlayListById
+            </button>
+            <button ng-click="audioContentService.getPlayLists()">
+                getPlayLists
+            </button>
+            <button ng-click="audioContentService.deletePlayList(1)">
+                deletePlayLists
+            </button>
+            <button ng-click="audioContentService.saveSongMetadata(2)">
+                saveSongMetadata
+            </button>
+
+
+            <!--
+            <div class="m-t-n-xxs item pos-rlt">
+                <div class="top text-right">
+                        <span class="musicbar animate bg-success bg-empty inline m-r-lg m-t"
+                              style="width:25px;height:30px">
+                          <span class="bar1 a3 lter"></span>
+                          <span class="bar2 a5 lt"></span>
+                          <span class="bar3 a1 bg"></span>
+                          <span class="bar4 a4 dk"></span>
+                          <span class="bar5 a2 dker"></span>
+                        </span>
+                </div>
+                <div class="bottom gd bg-info wrapper-lg">
+                    <span class="pull-right text-sm">101,400 <br>Followers</span>
+                    <span class="h2 font-thin">Soph Ashe</span>
+                </div>
+                <img class="img-full" height="100" src="images/m43.jpg" alt="...">
+            </div>-->
+
+            <ul class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
+
+                <li class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isSelected(song)}">
+
+                    <div class="jp-play-me m-r-sm pull-left">
+                        <i ng-click="play(song)" class="icon-control-play" ng-class="{'text-active': isPlaying(song)}"></i>
+                        <i ng-click="pause()" class="icon-control-pause" ng-class="{'text-active': false == isPlaying(song)}"></i>
+                    </div>
+
+                    <div class="pull-right m-l">
+                        <i ng-click="audioContentService.getFileSrc(song.cloudId, song.fileId)" class="icon-cloud-download"></i>
+                        <i class="icon-plus"></i>
+                        <i class="icon-close"></i>
+                    </div>
+                    <div class="clear text-ellipsis">
+                        <span>{{song.fileName}}</span>
+                        <span class="text-muted"> -- 04:35</span>
+                    </div>
+                </li>
+
+
+
+            </ul>
+        </section>
+    </section>
+    </section>
+</aside>
+
+<section class="col-sm-6 no-padder bg">
+    <div>
+        <pre>{{ playlist | json }}</pre>
+    </div>
+</section>

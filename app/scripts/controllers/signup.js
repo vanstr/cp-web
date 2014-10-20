@@ -9,10 +9,10 @@
  */
 angular.module('cpWebApp')
   .controller('SignupCtrl',
-    ['$rootScope', '$scope', '$location', '$window', 'Auth', function ($rootScope, $scope, $location, $window, Auth) {
+    ['$rootScope', '$scope', '$location', '$window', 'authService', function ($rootScope, $scope, $location, $window, authService) {
 
         $scope.signUp = function () {
-            Auth.register({
+            authService.register({
                         login: $scope.username,
                         password: $scope.password
                     },

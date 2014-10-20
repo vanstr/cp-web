@@ -8,9 +8,9 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-  .controller('HeaderCtrl', ['$rootScope', '$scope', '$location', 'Auth', function ($rootScope, $scope, $location, Auth) {
+  .controller('HeaderCtrl', ['$rootScope', '$scope', '$location', 'authService', function ($rootScope, $scope, $location, authService) {
     $scope.logout = function () {
-        Auth.logout(
+        authService.logout(
             function (res) {                	
                 $location.path('/');
             },
@@ -19,6 +19,6 @@ angular.module('cpWebApp')
             });
     };
 
-    $scope.accessRoles = Auth.accessRoles;
-    $scope.accessLevels = Auth.accessLevels;
+    $scope.accessRoles = authService.accessRoles;
+    $scope.accessLevels = authService.accessLevels;
   }]);
