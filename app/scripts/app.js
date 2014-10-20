@@ -45,6 +45,11 @@ angular.module('cpWebApp',
                             data: getAllSongs
                         }
                     })
+                    .when('/playLists', {
+                        templateUrl: 'views/playlists.html',
+                        controller: 'PlayListsCtrl',
+                        access: access.user
+                    })
                     .otherwise({
                         redirectTo: '/',
                         access: access.public

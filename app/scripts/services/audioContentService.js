@@ -123,5 +123,14 @@ angular.module('cpWebApp')
                 return deferred.promise;
             };
 
+        self.getPlayLists = function() {
+            var deferred = $q.defer();
+            $http.get('/api/api/playLists').success(function (playLists){
+                deferred.resolve(playLists);
+            }).error();
+
+            return deferred.promise;
+        };
+
 
         }]);
