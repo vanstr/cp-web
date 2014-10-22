@@ -22,7 +22,8 @@ angular.module('cpWebApp')
                     var deferred = $q.defer();
                     deferred.resolve(self.allSongs);
                     return deferred.promise;
-                }else {
+                }
+                else {
                     return self.getAllSongs();
                 }
             };
@@ -101,14 +102,14 @@ angular.module('cpWebApp')
             };
 
             // TODO test
-            self.saveSongMetadata = function (songMetadata) {
+            self.saveSongMetadata = function (song) {
                 $log.debug("saveSongMetadata:");
                 var deferred = $q.defer();
                 var apiUrl = '/api/api/saveSongMetadata';
                 $http({
                     url: apiUrl,
                     method: "POST",
-                    data: JSON.stringify(songMetadata),
+                    data: JSON.stringify(song),
                     headers: {'Content-Type': 'application/json'}
                 }).success(function (data) {
                     $log.debug(data);
@@ -120,13 +121,13 @@ angular.module('cpWebApp')
 
             // TODO test
             self.addPlayList = function (playList) {
-                $log.debug("saveSongMetadata:");
+                $log.debug("addPlayList:");
                 var deferred = $q.defer();
                 var apiUrl = '/api/api/playList';
                 $http({
                     url: apiUrl,
                     method: "POST",
-                    data: JSON.stringify(songMetadata),
+                    data: JSON.stringify(playList),
                     headers: {'Content-Type': 'application/json'}
                 }).success(function (data) {
                     $log.debug(data);
@@ -136,14 +137,14 @@ angular.module('cpWebApp')
                 return deferred.promise;
             };
 
-        self.getPlayLists = function() {
-            var deferred = $q.defer();
-            $http.get('/api/api/playLists').success(function (playLists){
-                deferred.resolve(playLists);
-            }).error();
+            self.getPlayLists = function () {
+                var deferred = $q.defer();
+                $http.get('/api/api/playLists').success(function (playLists) {
+                    deferred.resolve(playLists);
+                }).error();
 
-            return deferred.promise;
-        };
+                return deferred.promise;
+            };
 
 
         }]);
