@@ -26,6 +26,7 @@ angular.module('cpWebApp')
             };
 
             $scope.play = function (song) {
+                audioContentService.getSongMetadataFromFile(song);
                 audioPlayer.setCurrentSong(song);
                 audioPlayer.setPlaying(true);
             };

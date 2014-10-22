@@ -87,6 +87,19 @@ angular.module('cpWebApp')
                 return deferred.promise;
             };
 
+            self.getSongMetadataFromFile = function (songObj) {
+                $log.debug("requestSongMetadata" + songObj.url);
+                var deferred = $q.defer();
+                var songUrl = songObj.url; // TODO asume that url is avalable for all songs
+                ID3.loadTags(songUrl, function () {
+                    var metadata = ID3.getAllTags(songUrl);
+                    $log.debug("metadata: ");
+                    $log.debug(metadata);
+                    deferred.resolve(metadata);
+                });
+                return deferred.promise;
+            };
+
             // TODO test
             self.saveSongMetadata = function (songMetadata) {
                 $log.debug("saveSongMetadata:");
