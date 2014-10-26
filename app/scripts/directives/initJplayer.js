@@ -79,9 +79,10 @@ angular.module('cpWebApp')
                         console.log("setSongToJPlayer: " + newSong.fileName);
                         playerDom.jPlayer("clearMedia");
                         song = newSong;
+                        var songTitle = (( song.metadata != null) ? song.metadata.title + " - " + song.metadata.artist: song.fileName);
                         playerDom.jPlayer("setMedia", {
                             "mp3": song.url, //TODO
-                            "title": song.fileName
+                            "title":  songTitle
                         });
                     }
 
