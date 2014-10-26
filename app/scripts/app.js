@@ -16,11 +16,6 @@ angular.module('cpWebApp',
         ]).config(function ($httpProvider, $routeProvider) {
             var access = routingConfig.accessLevels;
 
-            var getAllSongs = function (audioContentService) {
-                console.log("wait for all songs");
-                return audioContentService.getAllSongsFromCashe();
-            }
-
             $routeProvider
                     .when('/', {
                         templateUrl: 'views/main.html',
@@ -40,10 +35,7 @@ angular.module('cpWebApp',
                     .when('/player', {
                         templateUrl: 'views/player.html',
                         controller: 'PlayerCtrl',
-                        access: access.user,
-                        resolve: {
-                            data: getAllSongs
-                        }
+                        access: access.user
                     })
                     .when('/playLists', {
                         templateUrl: 'views/playlists.html',

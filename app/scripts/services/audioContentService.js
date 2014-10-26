@@ -147,4 +147,8 @@ angular.module('cpWebApp')
             };
 
 
+
+            // get allSongs when service is initialized
+            self.getAllSongs();
+
         }]);

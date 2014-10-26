@@ -10,13 +10,25 @@
 angular.module('cpWebApp')
         .controller('PlayerCtrl', ['$scope', '$q', 'audioContentService', 'audioPlayer', function ($scope, $q, audioContentService, audioPlayer) {
 
-            $scope.audioContentService = audioContentService;
-            $scope.playlist = audioContentService.allSongs;
-            console.log(audioContentService.allSongs);
-
-            audioPlayer.currentPlayList = audioContentService.allSongs;
-            audioPlayer.currentSong = audioPlayer.getCurrentSong();
+            audioPlayer.currentSong = null;
+            audioPlayer.currentPlayList = null;
+            $scope.playlist = null;
             audioPlayer.currentSongArtist = "Unknown";
+
+            // Set default playlist
+            // if allSongs or updated refresh view content
+            $scope.$watch(
+                    function () {
+                        return audioContentService.allSongs
+                    },
+                    function (newVal, oldVal) {
+                        if (typeof newVal !== 'undefined') {
+                            $scope.playlist = audioContentService.allSongs;
+                            audioPlayer.currentPlayList = audioContentService.allSongs;
+                            audioPlayer.currentSong = audioPlayer.getCurrentSong();
+                        }
+                    }
+            );
 
             $scope.isPlaying = function (song) {
                 return audioPlayer.isPlaying() && $scope.isSelected(song);
@@ -40,11 +52,16 @@ angular.module('cpWebApp')
 
             // Metadata
 
+            // TODO move to service
             function getSongMetadata(song) {
                 var promise = null;
+                console.log("song.metadata: ");
+                console.log(song);
                 if (song.metadata == null || song.metadata.length == 0) {
                     promise  = audioContentService.getSongMetadataFromFile(song);
+                    console.log("metadata gotted");
                     promise.then(function(data){
+                        console.log("audioContentService: " + audioContentService);
                         song.metadata = data;
                         audioContentService.saveSongMetadata(song);
                     });
