@@ -33,8 +33,8 @@
                         </span>
                 </div>
                 <div class="bottom gd bg-info wrapper-lg">
-                    <span class="pull-right text-sm">101,400 <br>Followers</span>
-                    <span class="h2 font-thin">{{currentSongArtist}}</span>
+                    <span class="h2 font-thin">{{currentSong.metadata.title}}</span>
+                    <span class="pull-right text-sm">{{currentSong.metadata.artist || currentSong.fileName}}</span>
                 </div>
                 <img class="img-thumbnail" src="images/cover.jpg" alt="...">
             </div>

@@ -13,10 +13,11 @@ angular.module('cpWebApp')
             audioPlayer.currentSong = null;
             audioPlayer.currentPlayList = null;
             $scope.playlist = null;
+            $scope.currentSong = null;
             audioPlayer.currentSongArtist = "Unknown";
 
             // Set default playlist
-            // if allSongs or updated refresh view content
+            // trigger if allSongs or changed, then refresh view content
             $scope.$watch(
                     function () {
                         return audioContentService.allSongs
@@ -25,7 +26,18 @@ angular.module('cpWebApp')
                         if (typeof newVal !== 'undefined') {
                             $scope.playlist = audioContentService.allSongs;
                             audioPlayer.currentPlayList = audioContentService.allSongs;
-                            audioPlayer.currentSong = audioPlayer.getCurrentSong();
+                        }
+                    }
+            );
+
+            // trigger currentSong changing and
+            $scope.$watch(
+                    function () {
+                        return audioPlayer.getCurrentSong();
+                    },
+                    function (newVal, oldVal) {
+                        if ( newVal != null && newVal != oldVal) {
+                            $scope.currentSong = newVal;
                         }
                     }
             );
@@ -43,52 +55,10 @@ angular.module('cpWebApp')
                 audioPlayer.setCurrentSong(song);
                 audioPlayer.setPlaying(true);
 
-                setSongArtist( audioPlayer.getCurrentSong());
             };
 
             $scope.pause = function () {
                 audioPlayer.setPlaying(false);
-            };
-
-            // Metadata
-
-            // TODO move to service
-            function getSongMetadata(song) {
-                var promise = null;
-                console.log("song.metadata: ");
-                console.log(song);
-                if (song.metadata == null || song.metadata.length == 0) {
-                    promise  = audioContentService.getSongMetadataFromFile(song);
-                    console.log("metadata gotted");
-                    promise.then(function(data){
-                        console.log("audioContentService: " + audioContentService);
-                        song.metadata = data;
-                        audioContentService.saveSongMetadata(song);
-                    });
-                }
-                else {
-                    var deferred = $q.defer();
-                    deferred.resolve(song.metadata);
-                    promise = deferred.promise;
-                }
-                return promise;
-            };
-
-            function setSongArtist(song) {
-                getSongMetadata(song).then(function(metadata){
-                    var artist = "Unknown";
-                    console.log("Song artist:" + metadata.artist);
-                    if(metadata.artist != null && metadata.artist.length > 0 ){
-                        artist = metadata.artist;
-                    }
-                    $scope.currentSongArtist = artist;
-                    return artist;
-                })
-
-            };
-            $scope.getSongAlbum = function (song) {
-                // TODO could be optimized, lighter comparing
-                return angular.equals(audioPlayer.getCurrentSong(), song);
             };
 
         }]);

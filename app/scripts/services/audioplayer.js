@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-        .service('audioPlayer', function audioPlayer() {
+        .service('audioPlayer', [ 'audioContentService', function audioPlayer(audioContentService) {
 
             var self = this;
 
@@ -57,6 +57,9 @@ angular.module('cpWebApp')
                     self.currentPlayList = { "songs" :[song], "id": 0, "name": "unnamed"};
                     currentSongN = 0;
                 }
+
+                fetchSongMetadata(song);
+
                 playerState++;
             };
 
@@ -66,6 +69,13 @@ angular.module('cpWebApp')
 
             self.getCurrentSongN = function () {
                 return currentSongN;
+            };
+            self.setCurrentSongN = function (index) {
+                currentSong = self.currentPlayList.songs[index];
+                currentSongN = index;
+                fetchSongMetadata(currentSong);
+
+                playerState++;
             };
 
 
@@ -93,8 +103,7 @@ angular.module('cpWebApp')
                     nextSongNumber = 0;
                 }
 
-                currentSong = self.currentPlayList.songs[nextSongNumber];
-                currentSongN = nextSongNumber;
+                self.setCurrentSongN(nextSongNumber);
 
                 self.setPlaying(autoPlay);
             };
@@ -103,21 +112,28 @@ angular.module('cpWebApp')
                 var plLength = self.currentPlayList.songs.length;
                 console.log("PlLength: " + plLength);
 
-                var nextSongNumber = currentSongN - 1;
-                if (nextSongNumber < 0) {
+                var prevSongNumber = currentSongN - 1;
+                if (prevSongNumber < 0) {
                     console.log("it is first song of playlist or incorrect value, select last");
-                    nextSongNumber = plLength -1;
+                    prevSongNumber = plLength -1;
                 }
 
-                currentSong = self.currentPlayList.songs[nextSongNumber];
-                currentSongN = nextSongNumber;
+                self.setCurrentSongN(prevSongNumber);
 
                 self.setPlaying(autoPlay);
             };
 
-            // TODO self.prev
-
+            function fetchSongMetadata(song) {
+                if (song.metadata == null || song.metadata.length == 0) {
+                    var promise  = audioContentService.getSongMetadataFromFile(song);
+                    console.log("Got metadata");
+                    promise.then(function(data){
+                        song.metadata = data;
+                        audioContentService.saveSongMetadata(song);
+                    });
+                }
+            }
 
             return self;
 
-        });
+        }]);
