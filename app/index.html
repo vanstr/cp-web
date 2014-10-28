@@ -40,7 +40,7 @@
         <section>
             <section class="hbox stretch">
                 <!-- .aside -->
-                <aside access-level class="bg-black dk aside hidden-print" id="nav"  ng-include="'partials/aside.html'"></aside>
+                <aside access-level class="bg-black dk aside hidden-print" id="nav" ng-include src="'views/aside.html'" ></aside>
                 <!-- /.aside -->
 
                 <section id="content">
@@ -78,6 +78,8 @@
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/jquery.jplayer/index.js"></script>
     <script src="bower_components/jplayer.playlist/index.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-prompt/dist/angular-prompt.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -96,6 +98,7 @@
     <script src="scripts/controllers/common/header.js"></script>
     <script src="scripts/controllers/player.js"></script>
     <script src="scripts/controllers/playlists.js"></script>
+    <script src="scripts/controllers/playlist.js"></script>
     <script src="scripts/services/authService.js"></script>
     <script src="scripts/services/sessionService.js"></script>
     <script src="scripts/directives/accesslevel.js"></script>

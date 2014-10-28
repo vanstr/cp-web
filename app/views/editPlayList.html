@@ -1,0 +1,28 @@
+<!-- side content -->
+<aside class="col-sm-6 no-padder" id="sidebar">
+    <section class="vbox animated fadeInUp">
+        <section class="">
+            <ul class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
+                <li ng-style="styles[song.$$hashKey]" class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isSelected(song)}">
+                    <div class="jp-play-me m-r-sm pull-left">
+                        <i ng-click="play(song)" class="icon-control-play" ng-class="{'text-active': isPlaying(song)}"></i>
+                        <i ng-click="pause()" class="icon-control-pause" ng-class="{'text-active': false == isPlaying(song)}"></i>
+                    </div>
+
+                    <div class="pull-right m-l">
+                        <i ng-if="styles[song.$$hashKey] == null" class="icon-plus" ng-click="addSongToPlayList(song); styles[song.$$hashKey] = {'background-color': 'rgb(154, 218, 154)'}"></i>
+                        <i ng-if="styles[song.$$hashKey] != null" class="fa fa-minus-circle" ng-click="removeFromPlayList(song); styles[song.$$hashKey] = null"></i>
+                    </div>
+                    <div class="clear text-ellipsis">
+                        <span>{{song.fileName}}</span>
+                        <span class="text-muted"> -- 04:35</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </section>
+    </section>
+</aside>
+<button ng-click="readyUpdatePlayList()">
+    Ready
+</button>

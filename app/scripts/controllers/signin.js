@@ -21,7 +21,7 @@ angular.module('cpWebApp')
                             rememberme: $scope.rememberme // TODO implement in core
                         },
                         function (res) {
-                            $location.path('/');
+                            $location.path('/player');
                         },
                         function (err) {
                             $rootScope.error = "Failed to login";

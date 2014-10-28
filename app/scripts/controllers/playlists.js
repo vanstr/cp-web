@@ -8,10 +8,23 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-    .controller('PlayListsCtrl', ['$scope', 'audioContentService', function ($scope, audioContentService) {
+    .controller('PlayListsCtrl', ['$scope', 'audioContentService',
+        function ($scope, audioContentService) {
 
-        audioContentService.getPlayLists().then(function(playLists){
-            $scope.playLists = playLists;
-        });
+            audioContentService.getPlayLists().then(function(playLists){
+                $scope.playLists = playLists;
+            });
 
+            $scope.$on('addedPlayList', function(event, playList) {
+                $scope.playLists.push(playList);
+            });
+
+            $scope.$on('deletedPlayList', function(event, playListId) {
+                for(var current in $scope.playLists){
+                    if($scope.playLists[current].id == playListId){
+                        $scope.playLists.splice(current, 1);
+                        break;
+                    }
+                }
+            });
     }]);

@@ -12,13 +12,14 @@ angular.module('cpWebApp',
         [
             'ngCookies',
             'ngResource',
-            'ngRoute'
+            'ngRoute',
+            'ui.bootstrap'
         ]).config(function ($httpProvider, $routeProvider) {
             var access = routingConfig.accessLevels;
 
             var getAllSongs = function (audioContentService) {
                 console.log("wait for all songs");
-                return audioContentService.getAllSongsFromCashe();
+                return audioContentService.getAllSongsFromCache();
             }
 
             $routeProvider
@@ -45,10 +46,26 @@ angular.module('cpWebApp',
                             data: getAllSongs
                         }
                     })
-                    .when('/playLists', {
-                        templateUrl: 'views/playlists.html',
-                        controller: 'PlayListsCtrl',
+                    .when('/playList/:id', {
+                        templateUrl: 'views/player.html',
+                        controller: 'PlayListCtrl',
                         access: access.user
+                    })
+                    .when('/addPlayList', {
+                        templateUrl: 'views/addPlayList.html',
+                        controller: 'PlayListCtrl',
+                        access: access.user,
+                        resolve: {
+                            data: getAllSongs
+                        }
+                    })
+                    .when('/editPlayList/:playListId', {
+                        templateUrl: 'views/editPlayList.html',
+                        controller: 'PlayListManagementCtrl',
+                        access: access.user,
+                        resolve: {
+                            data: getAllSongs
+                        }
                     })
                     .otherwise({
                         redirectTo: '/',

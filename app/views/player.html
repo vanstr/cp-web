@@ -3,22 +3,26 @@
     <section class="vbox animated fadeInUp">
         <section class="">
 
-            <h3>Demo functional</h3>
-            <button ng-click="audioContentService.getAllSongs()">
-                getAllSongs
+            <button ng-show="hasPlayList()" ng-click="deletePlayList(playlist.id)">
+                Delete playlist
             </button>
-            <button ng-click="audioContentService.getPlayListById(1)">
-                getPlayListById
-            </button>
-            <button ng-click="audioContentService.getPlayLists()">
-                getPlayLists
-            </button>
-            <button ng-click="audioContentService.deletePlayList(1)">
-                deletePlayLists
-            </button>
-            <button ng-click="audioContentService.saveSongMetadata(2)">
-                saveSongMetadata
-            </button>
+            <!--<h3>Demo functional</h3>-->
+            <!--<button ng-click="audioContentService.getAllSongs()">-->
+                <!--getAllSongs-->
+            <!--</button>-->
+            <!--<button ng-click="audioContentService.getPlayListById(1)">-->
+                <!--getPlayListById-->
+            <!--</button>-->
+            <!--<button ng-click="audioContentService.getPlayLists()">-->
+                <!--getPlayLists-->
+            <!--</button>-->
+            <!--<button ng-click="audioContentService.deletePlayList(5)">-->
+                <!--deletePlayLists-->
+            <!--</button>-->
+            <!--{{playlist.id}}-->
+            <!--<button ng-click="audioContentService.saveSongMetadata(2)">-->
+                <!--saveSongMetadata-->
+            <!--</button>-->
 
 
             <!--
@@ -43,7 +47,6 @@
             <ul class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
 
                 <li class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isSelected(song)}">
-
                     <div class="jp-play-me m-r-sm pull-left">
                         <i ng-click="play(song)" class="icon-control-play" ng-class="{'text-active': isPlaying(song)}"></i>
                         <i ng-click="pause()" class="icon-control-pause" ng-class="{'text-active': false == isPlaying(song)}"></i>
@@ -51,8 +54,8 @@
 
                     <div class="pull-right m-l">
                         <i ng-click="audioContentService.getFileSrc(song.cloudId, song.fileId)" class="icon-cloud-download"></i>
-                        <i class="icon-plus"></i>
-                        <i class="icon-close"></i>
+                        <!--<i class="icon-plus"></i>-->
+                        <i ng-show="hasPlayList()" class="icon-close" ng-click="removeFromPlayList(song)"></i>
                     </div>
                     <div class="clear text-ellipsis">
                         <span>{{song.fileName}}</span>
@@ -67,9 +70,4 @@
     </section>
     </section>
 </aside>
-
-<section class="col-sm-6 no-padder bg">
-    <div>
-        <pre>{{ playlist | json }}</pre>
-    </div>
-</section>
+<a ng-show="hasPlayList() && !isUpdating()" ng-href="/#/editPlayList/{{playlist.id}}">Add more songs</a>

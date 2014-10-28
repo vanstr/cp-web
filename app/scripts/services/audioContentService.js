@@ -16,8 +16,8 @@ angular.module('cpWebApp')
             self.allSongs = null;
             self.playLists = null;
 
-            self.getAllSongsFromCashe = function () {
-                $log.debug("getAllSongsFromCashe:");
+            self.getAllSongsFromCache = function () {
+                $log.debug("getAllSongsFromCache:");
                 if (self.allSongs !== null) {
                     var deferred = $q.defer();
                     deferred.resolve(self.allSongs);
@@ -113,7 +113,7 @@ angular.module('cpWebApp')
                 $http({
                     url: apiUrl,
                     method: "POST",
-                    data: JSON.stringify(songMetadata),
+                    data: JSON.stringify(playList),
                     headers: {'Content-Type': 'application/json'}
                 }).success(function (data) {
                     $log.debug(data);
@@ -123,14 +123,54 @@ angular.module('cpWebApp')
                 return deferred.promise;
             };
 
-        self.getPlayLists = function() {
-            var deferred = $q.defer();
-            $http.get('/api/api/playLists').success(function (playLists){
-                deferred.resolve(playLists);
-            }).error();
+            self.getPlayLists = function() {
+                var deferred = $q.defer();
+                $http.get('/api/api/playLists').success(function (playLists){
+                    deferred.resolve(playLists);
+                }).error();
 
-            return deferred.promise;
-        };
+                return deferred.promise;
+            };
+
+            self.addSongToPlayList = function(playListId, song){
+                var deferred = $q.defer();
+                var songData = new Object();
+                songData.playListId = playListId;
+                songData.fileId = song.fileId;
+                songData.cloudId = song.cloudId;
+                songData.fileName = song.fileName;
+                $http({
+                    url: '/api/api/playListSong',
+                    method: "POST",
+                    data: JSON.stringify(songData),
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data) {
+                    $log.debug(data);
+                    deferred.resolve(data);
+                }).error();
+
+                return deferred.promise;
+            };
+
+            self.removeSongFromPlayList = function(playListId, song){
+                var deferred = $q.defer();
+                var songData = new Object();
+                songData["playListId"] = playListId;
+                songData["fileId"] = song.fileId;
+                songData["cloudId"] = song.cloudId;
+                console.log(songData);
+                $http({
+                    url: '/api/api/playListSong',
+                    method: "DELETE",
+                    data: JSON.stringify(songData),
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data) {
+                    $log.debug(data);
+                    deferred.resolve(data);
+                }).error();
+
+                return deferred.promise;
+            };
 
 
         }]);
