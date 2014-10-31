@@ -47,16 +47,7 @@ angular.module('cpWebApp')
                 }
 
                 currentSong = song;
-                if (foundSongIndex > -1) {
-                    currentSongN = foundSongIndex;
-                }
-                else {
-                    console.log("Song not found in playlist");
-                    // create new playlist of 1 song
-                    self.originalPlayList = { "songs" :[song], "id": 0, "name": "unnamed"};
-                    self.currentPlayList = { "songs" :[song], "id": 0, "name": "unnamed"};
-                    currentSongN = 0;
-                }
+                currentSongN = foundSongIndex;
                 playerState++;
             };
 
