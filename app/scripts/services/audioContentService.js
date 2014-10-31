@@ -16,6 +16,7 @@ angular.module('cpWebApp')
             self.allSongs = null;
             self.playLists = null;
 
+            //TODO rename
             self.getAllSongsFromCache = function () {
                 $log.debug("getAllSongsFromCache:");
                 if (self.allSongs !== null) {

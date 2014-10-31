@@ -10,7 +10,7 @@
         <ng-form name="nameDialog" novalidate="" role="form" class="ng-pristine ng-invalid ng-invalid-required">
             <div class="form-group input-group-lg" ng-class="{true: 'has-error'}[nameDialog.username.$dirty &amp;&amp; nameDialog.username.$invalid]">
                 <label class="control-label" for="username">Enter playlist name:</label>
-                <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" name="username" id="username" ng-model="newPlayList.name" ng-keyup="hitEnter($event)" required="">
+                <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" name="username" id="username" ng-model="newPlayList.name" ng-keyup="$event.keyCode == 13 && ok()" required="">
             </div>
         </ng-form>
     </div>

@@ -12,9 +12,6 @@ angular.module('cpWebApp')
 
             $scope.audioContentService = audioContentService;
             $scope.playlist = audioContentService.allSongs;
-            console.log(audioContentService.allSongs);
-
-            audioPlayer.currentPlayList = audioContentService.allSongs;
 
             $scope.isPlaying = function (song) {
                return audioPlayer.isPlaying() && $scope.isSelected(song);
@@ -22,10 +19,12 @@ angular.module('cpWebApp')
 
             $scope.isSelected = function (song) {
                 // TODO could be optimized, lighter comparing
-                return angular.equals(audioPlayer.getCurrentSong(), song);
+                return angular.equals(audioPlayer.getCurrentSong(), song)
+                    && $scope.playlist.id == audioPlayer.currentPlayList.id;
             };
 
             $scope.play = function (song) {
+                audioPlayer.currentPlayList = $scope.playlist;
                 audioPlayer.setCurrentSong(song);
                 audioPlayer.setPlaying(true);
             };

@@ -3,7 +3,7 @@
     <section class="vbox animated fadeInUp">
         <section class="">
             <ul class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
-                <li ng-style="styles[song.$$hashKey]" class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isSelected(song)}">
+                <li ng-style="styles[song.$$hashKey]" class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{chosen: song.chosen}" ng-class="{active: isSelected(song)}">
                     <div class="jp-play-me m-r-sm pull-left">
                         <i ng-click="play(song)" class="icon-control-play" ng-class="{'text-active': isPlaying(song)}"></i>
                         <i ng-click="pause()" class="icon-control-pause" ng-class="{'text-active': false == isPlaying(song)}"></i>
