@@ -70,7 +70,7 @@ angular.module('cpWebApp')
                             $(".scrollable.ng-scope").scrollTop(audioPlayer.currentPlayList.songs.indexOf(song)*60);
                         } else if(position > 0
                             && audioPlayer.currentPlayList.songs.indexOf(song)*60 - $(".scrollable.ng-scope").scrollTop() > $(".scrollable.ng-scope").height()){
-                            $(".scrollable.ng-scope").scrollTop(position);
+                            $(".scrollable.ng-scope").scrollTop(position + 60);
                         }
                         if (audioPlayer.isPlaying()) {
                             playerDom.jPlayer("play");
