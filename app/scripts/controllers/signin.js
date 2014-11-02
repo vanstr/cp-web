@@ -28,4 +28,12 @@ angular.module('cpWebApp')
                         });
             };
 
+            $scope.loginWithDropbox = function () {
+                var DROPBOX_AUTH_COMPLETE_URL = "http://localhost:8080/dropboxAuthComplete";
+                var DROPBOX_CLIENT_ID = "vw5zvh4m1fr72kw";
+                window.location.href = "https://www.dropbox.com/1/oauth2/authorize?client_id="+ DROPBOX_CLIENT_ID+"&response_type=code&redirect_uri="+DROPBOX_AUTH_COMPLETE_URL;
+            };
+
+
+
         }]);
