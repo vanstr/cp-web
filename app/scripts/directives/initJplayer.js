@@ -65,24 +65,34 @@ angular.module('cpWebApp')
                         if (!angular.equals(song, audioPlayer.getCurrentSong())) {
                             setSongToJPlayer(audioPlayer.getCurrentSong());
                         }
-
+                        var position = audioPlayer.currentPlayList.songs.indexOf(song)*60 - $(".scrollable.ng-scope").height();
+                        if(audioPlayer.currentPlayList.songs.indexOf(song)*60 < $(".scrollable.ng-scope").scrollTop()){
+                            $(".scrollable.ng-scope").scrollTop(audioPlayer.currentPlayList.songs.indexOf(song)*60);
+                        } else if(position > 0
+                            && audioPlayer.currentPlayList.songs.indexOf(song)*60 - $(".scrollable.ng-scope").scrollTop() > $(".scrollable.ng-scope").height()){
+                            $(".scrollable.ng-scope").scrollTop(position);
+                        }
                         if (audioPlayer.isPlaying()) {
                             playerDom.jPlayer("play");
-                        }
-                        else {
+                        } else {
                             playerDom.jPlayer("pause");
                         }
                         console.log("isPlaying:" + audioPlayer.isPlaying());
                     }
 
                     function setSongToJPlayer(newSong) {
-                        console.log("setSongToJPlayer: " + newSong.fileName);
-                        playerDom.jPlayer("clearMedia");
-                        song = newSong;
-                        playerDom.jPlayer("setMedia", {
-                            "mp3": song.url, //TODO
-                            "title": song.fileName
-                        });
+                        if(newSong) {
+                            console.log("setSongToJPlayer: " + newSong.fileName);
+                            playerDom.jPlayer("clearMedia");
+                            song = newSong;
+                            playerDom.jPlayer("setMedia", {
+                                "mp3": song.url, //TODO
+                                "title": song.fileName
+                            });
+                        } else {
+                            playerDom.jPlayer("clearMedia");
+                            $(".jp-title").text("");
+                        }
                     }
 
                     initJPlayer();

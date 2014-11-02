@@ -373,3 +373,14 @@ Date.now = Date.now || function() { return +new Date; };
 
   });
 }(jQuery);
+
+createLightSongObject = function(song, playListId){
+    var songData = new Object();
+    songData.playListId = playListId;
+    songData.fileId = song.fileId;
+    songData.cloudId = song.cloudId;
+    songData.fileName = song.fileName;
+    return songData;
+};
+
+$(".list-group-item.active")

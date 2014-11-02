@@ -54,10 +54,7 @@ angular.module('cpWebApp',
                     .when('/addPlayList', {
                         templateUrl: 'views/addPlayList.html',
                         controller: 'PlayListCtrl',
-                        access: access.user,
-                        resolve: {
-                            data: getAllSongs
-                        }
+                        access: access.user
                     })
                     .when('/editPlayList/:playListId', {
                         templateUrl: 'views/editPlayList.html',

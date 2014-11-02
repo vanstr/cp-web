@@ -16,7 +16,7 @@ angular.module('cpWebApp')
             $scope.open = function () {
 
                 var modalInstance = $modal.open({
-                    templateUrl: 'views/playListPopUp.html',
+                    templateUrl: 'playListPopUp.html',
                     controller: 'ModalInstanceCtrl'
                 });
 
@@ -34,20 +34,17 @@ angular.module('cpWebApp')
             };
 
             $scope.addEntry = function(song) {
-                var songObject = new Object();
-                songObject.fileId = song.fileId;
-                songObject.cloudId = song.cloudId;
-                songObject.fileName = song.fileName;
+                var songData = createLightSongObject(song, null);
                 var isPresent = false;
                 for(var obj in $scope.newPlayList.songs){
-                    if($scope.newPlayList.songs[obj].fileId == songObject.fileId
-                           && $scope.newPlayList.songs[obj].cloudId == songObject.cloudId){
+                    if($scope.newPlayList.songs[obj].fileId == songData.fileId
+                           && $scope.newPlayList.songs[obj].cloudId == songData.cloudId){
                         isPresent = true;
                         break;
                     }
                 }
                 if(!isPresent){
-                    $scope.newPlayList.songs.push(songObject);
+                    $scope.newPlayList.songs.push(songData);
                     console.log($scope.newPlayList.songs);
                 }
             };
@@ -94,11 +91,8 @@ angular.module('cpWebApp')
                     $scope.playlist.songs.splice($scope.playlist.songs.indexOf(song), 1);
                     audioPlayer.currentPlayList = $scope.playlist;
                     if(angular.equals(audioPlayer.getCurrentSong(), song)){
-                        audioPlayer.next();
-                    } else {
-                        audioPlayer.setCurrentSong(audioPlayer.getCurrentSong());
+                        audioPlayer.clear();
                     }
-
                 });
             };
 
@@ -155,74 +149,5 @@ angular.module('cpWebApp')
                 $scope.newPlayList.songs = new Array();
                 audioPlayer.currentPlayList = audioContentService.allSongs;
             }
-
-        }]);
-
-angular.module('cpWebApp').controller('ModalInstanceCtrl',['$scope', '$modalInstance', '$location',
-    function ($scope, $modalInstance, $location) {
-
-        $scope.ok = function () {
-            $modalInstance.close($scope.newPlayList.name);
-        };
-
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-            $location.path("/player");
-        };
-}]);
-
-angular.module('cpWebApp')
-    .controller('PlayListManagementCtrl',
-    ['$rootScope', '$scope', 'audioContentService', '$routeParams', '$modal', '$location', 'audioPlayer',
-        function ($rootScope, $scope, audioContentService, $routeParams, $modal, $location, audioPlayer) {
-
-            $scope.audioContentService = audioContentService;
-            $scope.playlist = audioContentService.allSongs;
-            $scope.styles = new Array();
-            audioContentService.getPlayListById($routeParams.playListId).then(function (playlist) {
-                $scope.updatedPlaylist = playlist;
-            });
-
-            $scope.removeFromPlayList = function(song){
-                var id = $routeParams.playListId;
-                audioContentService.removeSongFromPlayList(id, song).then(function(data){
-                    console.log($scope.playlist);
-                    console.log($scope.playlist.songs.indexOf(song));
-                    $scope.updatedPlaylist.songs.splice($scope.updatedPlaylist.songs.indexOf(song), 1);
-                });
-            };
-
-            $scope.addSongToPlayList = function(song){
-                audioContentService.addSongToPlayList($routeParams.playListId, song).then(function(data){
-                    if($scope.updatedPlaylist.songs.indexOf(song) < 0){
-                        $scope.updatedPlaylist.songs.push(song);
-                    }
-                });
-            };
-
-            $scope.readyUpdatePlayList = function(){
-                $location.path("/playList/" + $routeParams.playListId);
-            };
-
-            $scope.isPlaying = function (song) {
-                return audioPlayer.isPlaying() && $scope.isSelected(song);
-            };
-
-            $scope.isSelected = function (song) {
-                // TODO could be optimized, lighter comparing
-                return angular.equals(audioPlayer.getCurrentSong(), song)
-                    && $scope.playlist.id == audioPlayer.currentPlayList.id
-                    && angular.equals($scope.playlist, audioPlayer.currentPlayList);
-            };
-
-            $scope.play = function (song) {
-                audioPlayer.currentPlayList = $scope.playlist;
-                audioPlayer.setCurrentSong(song);
-                audioPlayer.setPlaying(true);
-            };
-
-            $scope.pause = function () {
-                audioPlayer.setPlaying(false);
-            };
 
         }]);

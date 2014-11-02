@@ -106,6 +106,12 @@ angular.module('cpWebApp')
                 self.setPlaying(autoPlay);
             };
 
+            self.clear = function(){
+                self.currentSong = null;
+                self.currentSongN = 0;
+                self.setPlaying(false);
+                self.setCurrentSong(null);
+            }
             // TODO self.prev
 
 
