@@ -382,5 +382,3 @@ createLightSongObject = function(song, playListId){
     songData.fileName = song.fileName;
     return songData;
 };
-
-$(".list-group-item.active")

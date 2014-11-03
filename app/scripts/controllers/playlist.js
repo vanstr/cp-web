@@ -9,8 +9,8 @@
  */
 angular.module('cpWebApp')
     .controller('PlayListCtrl',
-        ['$rootScope', '$scope', 'audioContentService', '$routeParams', '$modal', '$location', 'audioPlayer',
-        function ($rootScope, $scope, audioContentService, $routeParams, $modal, $location, audioPlayer) {
+        ['$rootScope', '$scope', 'audioContentService', '$routeParams', '$modal', '$location', 'audioPlayer', 'utilsService',
+        function ($rootScope, $scope, audioContentService, $routeParams, $modal, $location, audioPlayer, utilsService) {
 
             $scope.styles = new Array();
             $scope.open = function () {
@@ -34,7 +34,7 @@ angular.module('cpWebApp')
             };
 
             $scope.addEntry = function(song) {
-                var songData = createLightSongObject(song, null);
+                var songData = utilsService.createLightSongObject(song, null);
                 var isPresent = false;
                 for(var obj in $scope.newPlayList.songs){
                     if($scope.newPlayList.songs[obj].fileId == songData.fileId
