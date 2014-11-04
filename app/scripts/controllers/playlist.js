@@ -34,7 +34,7 @@ angular.module('cpWebApp')
             };
 
             $scope.addEntry = function(song) {
-                var songData = utilsService.createLightSongObject(song, null);
+                var songData = utilsService.createLightSongObject(song);
                 var isPresent = false;
                 for(var obj in $scope.newPlayList.songs){
                     if($scope.newPlayList.songs[obj].fileId == songData.fileId

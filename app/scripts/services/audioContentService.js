@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-        .service('audioContentService', ['$log', '$q', '$http', function ($log, $q, $http) {
+        .service('audioContentService', ['$log', '$q', '$http', 'utilsService', function ($log, $q, $http, utilsService) {
 
             var self = this;
 
@@ -127,13 +127,18 @@ angular.module('cpWebApp')
                 return deferred.promise;
             };
 
-            self.addSongToPlayList = function(playListId, song){
+            self.addSongsToPlayList = function(playListId, songs){
                 var deferred = $q.defer();
-                var songData = createLightSongObject(song, playListId);
+                var songsToAdd = new Object();
+                songsToAdd.playListId = playListId;
+                songsToAdd.songs = new Array();
+                for(var song in songs) {
+                    songsToAdd.songs.push(utilsService.createLightSongObject(songs[song]));
+                }
                 $http({
                     url: '/api/api/playListSong',
                     method: "POST",
-                    data: JSON.stringify(songData),
+                    data: JSON.stringify(songsToAdd),
                     headers: {'Content-Type': 'application/json'}
                 }).success(function (data) {
                     deferred.resolve(data);
@@ -144,7 +149,8 @@ angular.module('cpWebApp')
 
             self.removeSongFromPlayList = function(playListId, song){
                 var deferred = $q.defer();
-                var songData = createLightSongObject(song, playListId);
+                var songData = utilsService.createLightSongObject(song);
+                songData.playListId = playListId;
                 $http({
                     url: '/api/api/playListSong',
                     method: "DELETE",

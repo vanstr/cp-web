@@ -10,12 +10,10 @@
 angular.module('cpWebApp')
     .service('utilsService', function() {
         return {
-            createLightSongObject: function(song, playListId) {
+            createLightSongObject: function(song) {
                 var songData = new Object();
-                songData.playListId = playListId;
                 songData.fileId = song.fileId;
                 songData.cloudId = song.cloudId;
-                songData.fileName = song.fileName;
                 return songData;
             }
         };
