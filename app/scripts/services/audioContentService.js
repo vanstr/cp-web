@@ -65,9 +65,11 @@ angular.module('cpWebApp')
             };
 
             self.getPlayLists = function () {
+                $log.debug("getPlayLists:");
                 var deferred = $q.defer();
                 var apiUrl = '/api/api/playLists';
                 $http.get(apiUrl).success(function (data) {
+                    $log.debug(data);
                     self.playLists = data;
                     deferred.resolve(data);
                 }).error();
@@ -116,17 +118,6 @@ angular.module('cpWebApp')
                     headers: {'Content-Type': 'application/json'}
                 }).success(function (data) {
                     deferred.resolve(data);
-                }).error();
-
-                return deferred.promise;
-            };
-
-            self.getPlayLists = function() {
-                $log.debug("getPlayLists:");
-                var deferred = $q.defer();
-                $http.get('/api/api/playLists').success(function (playLists){
-                    $log.debug(data);
-                    deferred.resolve(playLists);
                 }).error();
 
                 return deferred.promise;
