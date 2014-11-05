@@ -76,9 +76,11 @@ angular.module('cpWebApp')
 
 
             self.deletePlayList = function (playListId) {
+                $log.debug("deletePlayList:");
                 var deferred = $q.defer();
                 var apiUrl = '/api/api/playList/' + playListId;
                 $http.delete(apiUrl).success(function (data) {
+                    $log.debug(data);
                     deferred.resolve(data);
                 }).error();
                 return deferred.promise;
@@ -104,6 +106,7 @@ angular.module('cpWebApp')
 
             // TODO test
             self.addPlayList = function (playList) {
+                $log.debug("addPlayList:");
                 var deferred = $q.defer();
                 var apiUrl = '/api/api/playList';
                 $http({
@@ -119,8 +122,10 @@ angular.module('cpWebApp')
             };
 
             self.getPlayLists = function() {
+                $log.debug("getPlayLists:");
                 var deferred = $q.defer();
                 $http.get('/api/api/playLists').success(function (playLists){
+                    $log.debug(data);
                     deferred.resolve(playLists);
                 }).error();
 
