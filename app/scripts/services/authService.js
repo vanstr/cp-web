@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-  .service('authService', function($http, $log, sessionService){
+  .service('authService', function($http, $log, sessionService, $q){
 
     $log.debug(sessionService);
 
@@ -66,6 +66,14 @@ angular.module('cpWebApp')
                 });
                 success();
             }).error(error);
+        },
+        dropboxAuthURL: function () {
+            var deferred = $q.defer();
+            $http.get('/api/dropboxAuthUrl').success(function (url) {
+                deferred.resolve(url);
+            }).error();
+
+            return deferred.promise;
         },
         accessLevels: accessLevels,
         userRoles: userRoles,
