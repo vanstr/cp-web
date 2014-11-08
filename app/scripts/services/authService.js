@@ -17,16 +17,22 @@ angular.module('cpWebApp')
         currentUser = { id: '', username: '', role: userRoles.public };
 
     if( sessionService['userId'] ){
-        $log.debug("get user from sessionService");
+        $log.debug("update user if  session exist");
         currentUser = { id: sessionService['userId'], username: sessionService['username'], role: userRoles.user };
+        updateUser();
     }
 
-
-    $log.debug(currentUser);
+    function updateUser() {
+        $http.get('/api/user').success(function (data) {
+            changeUser(data);
+        }).error();
+    }
 
     function changeUser(user) {
-        angular.extend(currentUser, user);
+       angular.extend(currentUser, user);
     }
+
+    $log.debug(currentUser);
 
     return {
         authorize: function(accessLevel, role) {
@@ -71,6 +77,14 @@ angular.module('cpWebApp')
             var deferred = $q.defer();
             $http.get('/api/dropboxAuthUrl').success(function (url) {
                 deferred.resolve(url);
+            }).error();
+
+            return deferred.promise;
+        },
+        dropboxDelete: function () {
+            var deferred = $q.defer();
+            $http.delete('/api/dropbox').success(function () {
+                deferred.resolve();
             }).error();
 
             return deferred.promise;
