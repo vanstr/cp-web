@@ -33,6 +33,11 @@ angular.module('cpWebApp')
                     window.location.href = data;
                 }));
             };
+            $scope.loginWithGDrive = function () {
+                authService.gdriveAuthURL().then((function(data){
+                    window.location.href = data;
+                }));
+            };
 
 
         }]);

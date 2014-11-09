@@ -89,6 +89,22 @@ angular.module('cpWebApp')
 
             return deferred.promise;
         },
+        gdriveAuthURL: function () {
+            var deferred = $q.defer();
+            $http.get('/api/driveAuthUrl').success(function (url) {
+                deferred.resolve(url);
+            }).error();
+
+            return deferred.promise;
+        },
+        gdriveDelete: function () {
+            var deferred = $q.defer();
+            $http.delete('/api/drive').success(function () {
+                deferred.resolve();
+            }).error();
+
+            return deferred.promise;
+        },
         accessLevels: accessLevels,
         userRoles: userRoles,
         user: currentUser
