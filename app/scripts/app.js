@@ -12,7 +12,8 @@ angular.module('cpWebApp',
         [
             'ngCookies',
             'ngResource',
-            'ngRoute'
+            'ngRoute',
+            'ui.bootstrap'
         ]).config(function ($httpProvider, $routeProvider) {
             var access = routingConfig.accessLevels;
 
@@ -37,9 +38,19 @@ angular.module('cpWebApp',
                         controller: 'PlayerCtrl',
                         access: access.user
                     })
-                    .when('/playLists', {
-                        templateUrl: 'views/playlists.html',
-                        controller: 'PlayListsCtrl',
+                    .when('/playList/:id', {
+                        templateUrl: 'views/player.html',
+                        controller: 'PlayListCtrl',
+                        access: access.user
+                    })
+                    .when('/addPlayList', {
+                        templateUrl: 'views/addPlayList.html',
+                        controller: 'PlayListCtrl',
+                        access: access.user
+                    })
+                    .when('/editPlayList/:playListId', {
+                        templateUrl: 'views/editPlayList.html',
+                        controller: 'PlayListManagementCtrl',
                         access: access.user
                     })
                     .otherwise({

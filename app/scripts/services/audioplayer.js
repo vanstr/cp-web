@@ -47,18 +47,11 @@ angular.module('cpWebApp')
                 }
 
                 currentSong = song;
-                if (foundSongIndex > -1) {
-                    currentSongN = foundSongIndex;
-                }
-                else {
-                    console.log("Song not found in playlist");
-                    // create new playlist of 1 song
-                    self.originalPlayList = { "songs" :[song], "id": 0, "name": "unnamed"};
-                    self.currentPlayList = { "songs" :[song], "id": 0, "name": "unnamed"};
-                    currentSongN = 0;
-                }
+                currentSongN = foundSongIndex;
 
-                fetchSongMetadata(song);
+                if(currentSongN >= 0) {
+                    fetchSongMetadata(song);
+                }
 
                 playerState++;
             };
@@ -78,7 +71,6 @@ angular.module('cpWebApp')
                 playerState++;
             };
 
-
             self.playPause = function () {
                 console.log("start playing");
                 playing = !playing;
@@ -96,7 +88,7 @@ angular.module('cpWebApp')
             self.next = function (autoPlay) {
                 var plLength = self.currentPlayList.songs.length;
                 console.log("PlLength: " + plLength);
-
+                currentSongN = self.currentPlayList.songs.indexOf(currentSong);
                 var nextSongNumber = currentSongN + 1;
                 if (nextSongNumber >= plLength) {
                     console.log("it is last song of playlist or incorrect value, select first");
@@ -133,6 +125,13 @@ angular.module('cpWebApp')
                     });
                 }
             }
+            self.clear = function(){
+                self.currentSong = null;
+                self.currentSongN = 0;
+                self.setPlaying(false);
+                self.setCurrentSong(null);
+            }
+            // TODO self.prev
 
             return self;
 

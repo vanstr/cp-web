@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-        .service('audioContentService', ['$log', '$q', '$http', function ($log, $q, $http) {
+        .service('audioContentService', ['$log', '$q', '$http', 'utilsService', function ($log, $q, $http, utilsService) {
 
             var self = this;
 
@@ -16,14 +16,14 @@ angular.module('cpWebApp')
             self.allSongs = null;
             self.playLists = null;
 
-            self.getAllSongsFromCashe = function () {
-                $log.debug("getAllSongsFromCashe:");
+            //TODO rename
+            self.getAllSongsFromCache = function () {
+                $log.debug("getAllSongsFromCache:");
                 if (self.allSongs !== null) {
                     var deferred = $q.defer();
                     deferred.resolve(self.allSongs);
                     return deferred.promise;
-                }
-                else {
+                }else {
                     return self.getAllSongs();
                 }
             };
@@ -137,18 +137,41 @@ angular.module('cpWebApp')
                 return deferred.promise;
             };
 
-            self.getPlayLists = function () {
+            self.addSongsToPlayList = function(playListId, songs){
                 var deferred = $q.defer();
-                $http.get('/api/api/playLists').success(function (playLists) {
-                    deferred.resolve(playLists);
+                var songsToAdd = new Object();
+                songsToAdd.playListId = playListId;
+                songsToAdd.songs = new Array();
+                for(var song in songs) {
+                    songsToAdd.songs.push(utilsService.createLightSongObject(songs[song]));
+                }
+                $http({
+                    url: '/api/api/playListSong',
+                    method: "POST",
+                    data: JSON.stringify(songsToAdd),
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data) {
+                    deferred.resolve(data);
                 }).error();
 
                 return deferred.promise;
             };
 
+            self.removeSongFromPlayList = function(playListId, song){
+                var deferred = $q.defer();
+                var songData = utilsService.createLightSongObject(song);
+                songData.playListId = playListId;
+                $http({
+                    url: '/api/api/playListSong',
+                    method: "DELETE",
+                    data: JSON.stringify(songData),
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data) {
+                    deferred.resolve(data);
+                }).error();
 
+                return deferred.promise;
+            };
 
-            // get allSongs when service is initialized
-            self.getAllSongs();
 
         }]);
