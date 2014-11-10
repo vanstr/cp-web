@@ -290,20 +290,17 @@
         Cloud Services
     </li>
     <li>
-        <a>
+        <a href ng-click="processDropbox()">
             <i class="fa fa-dropbox"></i>
-            <b class="pull-right" ng-show="!hasDropboxAccount()" ng-click="addDropbox()">add</b>
-            <b class="pull-right" ng-show="hasDropboxAccount()" ng-click="deleteDropbox()">unlink</b>
-            <span>Dropbox</span>
+            <span>{{hasDropboxAccount() ? 'Unlink' : 'Add'}} Dropbox</span>
         </a>
     </li>
     <li>
-        <a  ng-click="processGDrive()">
+        <a href ng-click="processGDrive()">
             <i class="fa fa-google-plus-square"></i>
-            <b class="pull-right" ng-show="!hasGDriveAccount()" ng-click="addGDrive()">add</b>
-            <b class="pull-right" ng-show="hasGDriveAccount()" ng-click="deleteGDrive()">unlink</b>
+            <b ></b>
 
-            <span>GDrive</span>
+            <span>{{hasGDriveAccount() ? 'Unlink' : 'Add'}} GDrive</span>
         </a>
     </li>
 

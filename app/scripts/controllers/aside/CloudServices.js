@@ -4,19 +4,37 @@
 angular.module('cpWebApp')
     .controller('CloudServicesCtrl', ['$scope', 'authService', function ($scope, authService) {
 
+        $scope.processGDrive = function () {
+            console.log("processDropbox");
+            if ( $scope.hasGDriveAccount()) {
+                $scope.deleteGDrive();
+            } else {
+                $scope.addGDrive();
+            }
+        };
+
         $scope.addGDrive = function () {
             authService.gdriveAuthURL().then((function (data) {
                 console.log("addGDrive : " + data);
                 window.location.href = data;
             }));
-        }
+        };
 
         $scope.deleteGDrive= function () {
             console.log("delete gdrive acc");
             authService.gdriveDelete().then((function (data) {
                 window.location.href = "/";
             }));
-        }
+        };
+
+        $scope.processDropbox = function () {
+            console.log("processDropbox");
+            if ( $scope.hasDropboxAccount()) {
+                $scope.deleteDropbox();
+            } else {
+                $scope.addDropbox();
+            }
+        };
 
         $scope.addDropbox= function () {
             authService.dropboxAuthURL().then((function (data) {
