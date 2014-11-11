@@ -79,11 +79,15 @@ angular.module('cpWebApp')
                         console.log("setSongToJPlayer: " + newSong.fileName);
                         playerDom.jPlayer("clearMedia");
                         song = newSong;
-                        var songTitle = (( song.metadata != null) ? song.metadata.title + " - " + song.metadata.artist: song.fileName);
+                        var songTitle = ( (songHasMetadata(song)) ? song.metadata.title + " - " + song.metadata.artist: song.fileName);
                         playerDom.jPlayer("setMedia", {
                             "mp3": song.url, //TODO
                             "title":  songTitle
                         });
+                    }
+
+                    function songHasMetadata(song){
+                        return ( song.metadata != null && song.metadata.title != null && song.metadata.artist != null)
                     }
 
                     initJPlayer();
