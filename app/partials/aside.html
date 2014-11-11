@@ -1,4 +1,4 @@
-<section class="vbox" ng-controller="PlayListsCtrl">
+<section class="vbox">
     <section class="w-f-md scrollable">
         <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px"
              data-railopacity="0.2">
@@ -15,7 +15,7 @@
                             <span class="font-bold">Player</span>
                         </a>
                     </li>
-                    <li id="playlistTab">
+                    <li id="playlistTab" ng-controller="PlayListsCtrl">
                         <a class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-angle-left text"></i>
@@ -34,8 +34,7 @@
                             </li>
                             <li>
                                 <a ng-href="/#/addPlayList" class="auto">
-                                    <i class="fa fa-angle-right text-xs"></i>
-
+                                    <i class="icon-plus i-lg"></i>
                                     <span>Add playlist</span>
                                 </a>
                             </li>
