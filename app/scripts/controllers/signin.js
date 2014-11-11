@@ -29,4 +29,16 @@ angular.module('cpWebApp')
                         });
             };
 
+            $scope.loginWithDropbox = function () {
+                authService.dropboxAuthURL().then((function(data){
+                    window.location.href = data;
+                }));
+            };
+            $scope.loginWithGDrive = function () {
+                authService.gdriveAuthURL().then((function(data){
+                    window.location.href = data;
+                }));
+            };
+
+
         }]);

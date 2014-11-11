@@ -85,9 +85,10 @@ angular.module('cpWebApp')
                             console.log("setSongToJPlayer: " + newSong.fileName);
                             playerDom.jPlayer("clearMedia");
                             song = newSong;
+                            var songTitle = getSongTitle(song);
                             playerDom.jPlayer("setMedia", {
                                 "mp3": song.url, //TODO
-                                "title": song.fileName
+                                "title": songTitle
                             });
                         } else {
                             playerDom.jPlayer("clearMedia");
@@ -95,6 +96,14 @@ angular.module('cpWebApp')
                         }
                     }
 
+                    function getSongTitle(song){                       
+                        if( ( song.metadata != null && song.metadata.title != null && song.metadata.artist != null)){
+                            return song.metadata.title + " - " + song.metadata.artist;
+                        }else{
+                            return song.fileName;
+                        }
+                    }
+                    
                     initJPlayer();
 
                     // Trigger changes in audioPlayer, by `playerState` variable
