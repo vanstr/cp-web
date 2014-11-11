@@ -21,6 +21,7 @@ body {
 a {
   color: #545a5f;
   text-decoration: none;
+  cursor: pointer;
 }
 a:hover,
 a:focus {

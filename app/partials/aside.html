@@ -289,18 +289,17 @@
     <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
         Cloud Services
     </li>
+
     <li>
-        <a href ng-click="processDropbox()">
-            <i class="fa fa-dropbox"></i>
-            <span>{{hasDropboxAccount() ? 'Unlink' : 'Add'}} Dropbox</span>
+        <a ng-click="processGDrive()">
+            <i class="fa fa-google-plus-square"></i>
+            <span>{{hasGDriveAccount() ? 'Unlink' : 'Add'}} GDrive</span>
         </a>
     </li>
     <li>
-        <a href ng-click="processGDrive()">
-            <i class="fa fa-google-plus-square"></i>
-            <b ></b>
-
-            <span>{{hasGDriveAccount() ? 'Unlink' : 'Add'}} GDrive</span>
+        <a ng-click="processDropbox()">
+            <i class="fa fa-dropbox"></i>
+            <span>{{hasDropboxAccount() ? 'Unlink' : 'Add'}} Dropbox</span>
         </a>
     </li>
 
