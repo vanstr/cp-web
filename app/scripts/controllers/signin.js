@@ -9,7 +9,7 @@
  */
 angular.module('cpWebApp')
     .controller('SigninCtrl',
-        ['$rootScope', '$scope', '$location', '$window', 'authService', function ($rootScope, $scope, $location, $window, authService) {
+        ['$rootScope', '$scope', '$location', '$window', 'authService', 'growl', function ($rootScope, $scope, $location, $window, authService, growl) {
             $scope.rememberme = true;
             $scope.user = authService.currentUser;
 
@@ -25,6 +25,7 @@ angular.module('cpWebApp')
                             $location.path('/player');
                         },
                         function (err) {
+                            growl.error("Failed to login, check your username and password");
                             $rootScope.error = "Failed to login";
                         });
             };

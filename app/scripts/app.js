@@ -13,8 +13,9 @@ angular.module('cpWebApp',
             'ngCookies',
             'ngResource',
             'ngRoute',
+            'angular-growl',
             'ui.bootstrap'
-        ]).config(function ($httpProvider, $routeProvider) {
+        ]).config(function ($httpProvider, $routeProvider, growlProvider) {
             var access = routingConfig.accessLevels;
 
             $routeProvider
@@ -80,6 +81,9 @@ angular.module('cpWebApp',
             }];
 
             $httpProvider.responseInterceptors.push(interceptor);
+
+            growlProvider.globalTimeToLive(3000);
+
         })
         .run(['$rootScope', '$location', '$log', 'authService', function ($rootScope, $location, $log, authService) {
 

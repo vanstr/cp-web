@@ -59,7 +59,7 @@ angular.module('cpWebApp')
                 changeUser(user);
                 success(user);
             }).error(function(){
-                $log.error("Failed to logout");
+                $log.error("Failed to login");
                 error();
             });
         },
