@@ -97,4 +97,11 @@ angular.module('cpWebApp',
                 }
             });
 
+
+            $rootScope.isLoggedIn = function() {
+                var res = authService.isLoggedIn();
+                console.log("isLoggedIn:" + res);
+                return res;
+            };
+
         }]);

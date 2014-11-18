@@ -45,7 +45,7 @@
 
                 <section id="content">
                     <section class="vbox" >
-                        <section class="scrollable" ng-view="" ></section>
+                        <section ng-class="{ 'scrollable' : isLoggedIn() }" ng-view=""></section>
 
                         <!--ng-show="false"-->
                         <footer access-level ng-include="'partials/footer_player.html'" class="footer bg-info dk"></footer>

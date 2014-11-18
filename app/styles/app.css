@@ -3918,3 +3918,6 @@ fieldset[disabled] .i-checks input + i:before {
 .scrollable.ng-scope{
     margin-bottom: 60px;
 }
+.fill{
+    min-height: 100%;
+}
