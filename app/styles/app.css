@@ -1083,7 +1083,7 @@ body.container {
     left: 0;
     top: 0px;
     bottom: 0;
-    width: 75%;
+    width: 50%;
     visibility: visible;
     overflow-x: hidden;
     overflow-y: auto;
@@ -1093,7 +1093,7 @@ body.container {
     display: block !important;
   }
   .nav-off-screen .navbar-fixed-top-xs {
-    width: 75%;
+    width: 50%;
   }
   .nav-off-screen.push-right .navbar-fixed-top-xs {
     left: 25%;
@@ -1103,8 +1103,8 @@ body.container {
     right: 0;
   }
   .nav-off-screen.push-right + * {
-    -webkit-transform: translate3d(-75%,0px,0px);
-    transform: translate3d(-75%,0px,0px);
+    -webkit-transform: translate3d(-50%,0px,0px);
+    transform: translate3d(-50%,0px,0px);
   }
   .nav-off-screen + * {
     background-color: #f2f4f8;
@@ -1119,8 +1119,8 @@ body.container {
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-transform: translate3d(75%,0px,0px);
-    transform: translate3d(75%,0px,0px);
+    -webkit-transform: translate3d(50%,0px,0px);
+    transform: translate3d(50%,0px,0px);
     overflow: hidden;
     position: absolute;
     width: 100%;

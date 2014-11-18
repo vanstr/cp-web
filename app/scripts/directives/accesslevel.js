@@ -12,8 +12,7 @@ angular.module('cpWebApp')
                 restrict: 'A',
                 link: function($scope, element, attrs) {
 
-                    var prevDisp = element.css('display')
-                      , userRole
+                    var userRole
                       , accessLevel;
                     // by default access only for registred
                     if(!accessLevel) accessLevel = authService.accessLevels.user;
@@ -32,9 +31,9 @@ angular.module('cpWebApp')
                     function updateCSS() {
                         if(userRole && accessLevel) {
                             if(!authService.authorize(accessLevel, userRole))
-                                element.css('display', 'none');
+                                element.addClass("hidden");
                             else
-                                element.css('display', prevDisp);
+                                element.removeClass("hidden");
                         }
                     }
                 }
