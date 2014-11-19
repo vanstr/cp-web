@@ -22,6 +22,7 @@ angular.module('cpWebApp')
                         },
                         function (res) {
                             $rootScope.$broadcast('login', []);
+                            growl.success("Login successful");
                             $location.path('/player');
                         },
                         function (err) {
