@@ -9,7 +9,7 @@
  */
 angular.module('cpWebApp')
   .controller('SignupCtrl',
-    ['$rootScope', '$scope', '$location', '$window', 'authService', function ($rootScope, $scope, $location, $window, authService) {
+    ['$rootScope', '$scope', '$location', '$window', 'authService', 'growl', function ($rootScope, $scope, $location, $window, authService, growl) {
 
         $scope.signUp = function () {
             authService.register({
@@ -20,7 +20,7 @@ angular.module('cpWebApp')
                         $location.path('/signin');
                     },
                     function (err) {
-                        $rootScope.error = "Failed to login";
+                        growl.error("Failed to signup");
                     });
         };
 
