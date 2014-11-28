@@ -336,6 +336,7 @@ module.exports = function (grunt) {
             'views/{,*/}*.html',
 			'partials/{,*/}*.html',
             'images/*',
+            'scripts/**/*',
             'fonts/*'
           ]
         }, {
@@ -436,7 +437,7 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     //'uglify',
-    'filerev',
+    //'filerev',
     'usemin'
     //,'htmlmin'
   ]);
