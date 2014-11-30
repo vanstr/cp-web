@@ -35,7 +35,7 @@ angular.module('cpWebApp')
         };
 
         function addGDrive () {
-            authService.gdriveAuthURL().then((function (data) {
+            authService.gdriveAddingURL().then((function (data) {
                 console.log("addGDrive : " + data);
                 window.location.href = data;
             }));

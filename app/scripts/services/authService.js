@@ -99,7 +99,15 @@ angular.module('cpWebApp')
         },
         gdriveAuthURL: function () {
             var deferred = $q.defer();
-            $http.get('/api/driveAuthUrl').success(function (url) {
+            $http.get('/api/drive/url/authorize').success(function (url) {
+                deferred.resolve(url);
+            }).error();
+
+            return deferred.promise;
+        },
+        gdriveAddingURL: function () {
+            var deferred = $q.defer();
+            $http.get('/api/drive/url/add').success(function (url) {
                 deferred.resolve(url);
             }).error();
 
