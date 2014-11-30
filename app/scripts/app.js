@@ -107,7 +107,7 @@ angular.module('cpWebApp',
                         case "success": growl.success(urlParams['message']);  break;
                         case "warning": growl.warning(urlParams['message']);  break;
                         case "info":  growl.info(urlParams['message']); break;
-                        default: growl.error("massasa" + urlParams['message']);
+                        default: growl.error(urlParams['message']);
                     }
                     //clear url params
                     $location.search("message", null);
