@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 		rewrite: {
         // the key '^/api' is a regex for the path to be rewritten
         // the value is the context of the data service
-        '^/api': ''
+        '^/api': '/api'
     }
 	  }],
       livereload: {
@@ -216,7 +216,8 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat', 'uglifyjs'],
+              //js: ['concat', 'uglifyjs'],
+              js: ['concat'],
               css: ['cssmin']
             },
             post: {}
@@ -333,8 +334,9 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
-			      'partials/{,*/}*.html',
-            'images/{,*/}*.{webp}',
+			'partials/{,*/}*.html',
+            'images/*',
+            'scripts/**/*',
             'fonts/*'
           ]
         }, {
@@ -434,10 +436,10 @@ module.exports = function (grunt) {
     'copy:dist',
     'cdnify',
     'cssmin',
-    'uglify',
-    'filerev',
-    'usemin',
-    'htmlmin'
+    //'uglify',
+    //'filerev',
+    'usemin'
+    //,'htmlmin'
   ]);
 
   grunt.registerTask('default', [

@@ -32,7 +32,7 @@ angular.module('cpWebApp')
             self.getAllSongs = function () {
                 $log.debug("getAllSongs:");
                 var deferred = $q.defer();
-                var apiUrl = '/api/api/playList';
+                var apiUrl = '/api/playList';
                 $http.get(apiUrl).success(function (data) {
                     $log.debug(data);
                     self.allSongs = data;
@@ -45,7 +45,7 @@ angular.module('cpWebApp')
             self.getFileSrc = function (cloudId, fileId) {
                 $log.debug("getFileSrc:");
                 var deferred = $q.defer();
-                var apiUrl = '/api/api/link?cloudId=' + cloudId + '&fileId=' + fileId;
+                var apiUrl = '/api/link?cloudId=' + cloudId + '&fileId=' + fileId;
                 $http.get(apiUrl).success(function (song) {
                     $log.debug(song);
                     deferred.resolve(song);
@@ -56,7 +56,7 @@ angular.module('cpWebApp')
             self.getPlayListById = function (playListId) {
                 $log.debug("getPlayListById:");
                 var deferred = $q.defer();
-                var apiUrl = '/api/api/playList/' + playListId;
+                var apiUrl = '/api/playList/' + playListId;
                 $http.get(apiUrl).success(function (data) {
                     $log.debug(data);
                     deferred.resolve(data);
@@ -67,7 +67,7 @@ angular.module('cpWebApp')
             self.getPlayLists = function () {
                 $log.debug("getPlayLists:");
                 var deferred = $q.defer();
-                var apiUrl = '/api/api/playLists';
+                var apiUrl = '/api/playLists';
                 $http.get(apiUrl).success(function (data) {
                     $log.debug(data);
                     self.playLists = data;
@@ -80,7 +80,7 @@ angular.module('cpWebApp')
             self.deletePlayList = function (playListId) {
                 $log.debug("deletePlayList:");
                 var deferred = $q.defer();
-                var apiUrl = '/api/api/playList/' + playListId;
+                var apiUrl = '/api/playList/' + playListId;
                 $http.delete(apiUrl).success(function (data) {
                     $log.debug(data);
                     deferred.resolve(data);
@@ -105,7 +105,7 @@ angular.module('cpWebApp')
             self.saveSongMetadata = function (song) {
                 $log.debug("saveSongMetadata:");
                 var deferred = $q.defer();
-                var apiUrl = '/api/api/saveSongMetadata';
+                var apiUrl = '/api/saveSongMetadata';
                 $http({
                     url: apiUrl,
                     method: "POST",
@@ -123,7 +123,7 @@ angular.module('cpWebApp')
             self.addPlayList = function (playList) {
                 $log.debug("addPlayList:");
                 var deferred = $q.defer();
-                var apiUrl = '/api/api/playList';
+                var apiUrl = '/api/playList';
                 $http({
                     url: apiUrl,
                     method: "POST",
@@ -146,7 +146,7 @@ angular.module('cpWebApp')
                     songsToAdd.songs.push(utilsService.createLightSongObject(songs[song]));
                 }
                 $http({
-                    url: '/api/api/playListSong',
+                    url: '/api/playListSong',
                     method: "POST",
                     data: JSON.stringify(songsToAdd),
                     headers: {'Content-Type': 'application/json'}
@@ -162,7 +162,7 @@ angular.module('cpWebApp')
                 var songData = utilsService.createLightSongObject(song);
                 songData.playListId = playListId;
                 $http({
-                    url: '/api/api/playListSong',
+                    url: '/api/playListSong',
                     method: "DELETE",
                     data: JSON.stringify(songData),
                     headers: {'Content-Type': 'application/json'}
