@@ -85,7 +85,7 @@ angular.module('cpWebApp',
             growlProvider.globalTimeToLive(3000);
 
         })
-        .run(['$rootScope', '$location', '$log', 'authService', function ($rootScope, $location, $log, authService) {
+        .run(['$rootScope', '$location', '$log', 'authService', 'growl', function ($rootScope, $location, $log, authService, growl) {
 
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
                 $log.debug(next);
@@ -99,6 +99,21 @@ angular.module('cpWebApp',
                         $location.path('/signin');
                     }
                 }
+
+                // Growl message processing from URL params
+                var urlParams = $location.search();
+                if( urlParams['message'] ) {
+                    switch (urlParams['message_type']) {
+                        case "success": growl.success(urlParams['message']);  break;
+                        case "warning": growl.warning(urlParams['message']);  break;
+                        case "info":  growl.info(urlParams['message']); break;
+                        default: growl.error("massasa" + urlParams['message']);
+                    }
+                    //clear url params
+                    $location.search("message", null);
+                    $location.search("message_type", null);
+                }
+
             });
 
 
