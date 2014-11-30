@@ -50,7 +50,7 @@ angular.module('cpWebApp')
 
 
         function addDropbox() {
-            authService.dropboxAuthURL().then((function (data) {
+            authService.dropboxAddingURL().then((function (data) {
                 console.log("loginWithDropbox : " + data);
                 window.location.href = data;
             }));

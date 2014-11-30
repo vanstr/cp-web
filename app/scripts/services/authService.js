@@ -75,7 +75,15 @@ angular.module('cpWebApp')
         },
         dropboxAuthURL: function () {
             var deferred = $q.defer();
-            $http.get('/api/dropboxAuthUrl').success(function (url) {
+            $http.get('/api/dropbox/url/authorize').success(function (url) {
+                deferred.resolve(url);
+            }).error();
+
+            return deferred.promise;
+        },
+        dropboxAddingURL: function () {
+            var deferred = $q.defer();
+            $http.get('/api/dropbox/url/add').success(function (url) {
                 deferred.resolve(url);
             }).error();
 
