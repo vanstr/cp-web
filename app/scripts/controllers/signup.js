@@ -18,6 +18,7 @@ angular.module('cpWebApp')
                     },
                     function (res) {
                         $location.path('/signin');
+                        growl.info("Registration successful, plaese login");
                     },
                     function (err) {
                         growl.error("Failed to signup");
