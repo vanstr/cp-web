@@ -14,6 +14,7 @@ angular.module('cpWebApp')
                 var songData = new Object();
                 songData.fileId = song.fileId;
                 songData.cloudId = song.cloudId;
+                songData.fileName = song.fileName;
                 return songData;
             }
         };
