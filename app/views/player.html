@@ -1,32 +1,14 @@
 <!-- side content -->
 <aside class="col-sm-6 no-padder" id="sidebar">
     <section class="vbox animated fadeInUp">
-        <section class="">
 
-            <button ng-show="hasPlayList()" ng-click="deletePlayList(playlist.id)">
-                Delete playlist
-            </button>
-            <!--<h3>Demo functional</h3>-->
-            <!--<button ng-click="audioContentService.getAllSongs()">-->
-                <!--getAllSongs-->
-            <!--</button>-->
-            <!--<button ng-click="audioContentService.getPlayListById(1)">-->
-                <!--getPlayListById-->
-            <!--</button>-->
-            <!--<button ng-click="audioContentService.getPlayLists()">-->
-                <!--getPlayLists-->
-            <!--</button>-->
-            <!--<button ng-click="audioContentService.deletePlayList(5)">-->
-                <!--deletePlayLists-->
-            <!--</button>-->
-            <!--{{playlist.id}}-->
-            <!--<button ng-click="audioContentService.saveSongMetadata(2)">-->
-                <!--saveSongMetadata-->
-            <!--</button>-->
+        <button ng-show="hasPlayList()" ng-click="deletePlayList(playlist.id)">
+            Delete playlist
+        </button>
 
 
-            <div class="m-t-n-xxs item pos-rlt">
-                <div class="top text-right">
+        <div class="m-t-n-xxs item pos-rlt">
+            <div class="top text-right">
                         <span class="musicbar animate bg-success bg-empty inline m-r-lg m-t"
                               style="width:25px;height:30px">
                           <span class="bar1 a3 lter"></span>
@@ -35,35 +17,35 @@
                           <span class="bar4 a4 dk"></span>
                           <span class="bar5 a2 dker"></span>
                         </span>
-                </div>
-                <div class="bottom gd bg-info wrapper-lg">
-                    <span class="h2 font-thin">{{currentSong.metadata.title}}</span>
-                    <span class="pull-right text-sm">{{currentSong.metadata.artist || currentSong.fileName}}</span>
-                </div>
-                <img class="img-thumbnail" src="images/cover.jpg" alt="...">
             </div>
+            <div class="bottom gd bg-info wrapper-lg">
+                <span class="h2 font-thin">{{currentSong.metadata.title}}</span>
+                <span class="pull-right text-sm">{{currentSong.metadata.artist || currentSong.fileName}}</span>
+            </div>
+            <img class="img-thumbnail" src="images/cover.jpg" alt="...">
+        </div>
 
-            <ul class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
+        <ul class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
 
-                <li class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isSelected(song)}">
-                    <div class="jp-play-me m-r-sm pull-left">
-                        <i ng-click="play(song)" class="icon-control-play" ng-class="{'text-active': isPlaying(song)}"></i>
-                        <i ng-click="pause()" class="icon-control-pause" ng-class="{'text-active': false == isPlaying(song)}"></i>
-                    </div>
+            <li class="list-group-item" ng-repeat="song in playlist.songs" ng-class="{active: isSelected(song)}">
+                <div class="jp-play-me m-r-sm pull-left">
+                    <i ng-click="play(song)" class="icon-control-play" ng-class="{'text-active': isPlaying(song)}"></i>
+                    <i ng-click="pause()" class="icon-control-pause"
+                       ng-class="{'text-active': false == isPlaying(song)}"></i>
+                </div>
 
-                    <div class="pull-right m-l">
-                        <i ng-click="audioContentService.getFileSrc(song.cloudId, song.fileId)" class="icon-cloud-download"></i>
-                        <!--<i class="icon-plus"></i>-->
-                        <i ng-show="hasPlayList()" class="icon-close" ng-click="removeFromPlayList(song)"></i>
-                    </div>
-                    <div class="clear text-ellipsis">
-                        <span>{{song.fileName}}:</span>
-                        <span class="text-muted"> {{song.metadata.artist}} - {{song.metadata.title}}</span>
-                    </div>
-                </li>
-            </ul>
-        </section>
-    </section>
+                <div class="pull-right m-l">
+                    <i ng-click="audioContentService.getFileSrc(song.cloudId, song.fileId)"
+                       class="icon-cloud-download"></i>
+                    <!--<i class="icon-plus"></i>-->
+                    <i ng-show="hasPlayList()" class="icon-close" ng-click="removeFromPlayList(song)"></i>
+                </div>
+                <div class="clear text-ellipsis">
+                    <span>{{song.fileName}}:</span>
+                    <span class="text-muted"> {{song.metadata.artist}} - {{song.metadata.title}}</span>
+                </div>
+            </li>
+        </ul>
     </section>
 </aside>
 <a ng-show="hasPlayList()" ng-href="/#/editPlayList/{{playlist.id}}">Add more songs</a>
@@ -78,15 +60,21 @@
         </div>
         <div class="modal-body">
             <ng-form name="nameDialog" novalidate="" role="form" class="ng-pristine ng-invalid ng-invalid-required">
-                <div class="form-group input-group-lg" ng-class="{true: 'has-error'}[nameDialog.username.$dirty &amp;&amp; nameDialog.username.$invalid]">
+                <div class="form-group input-group-lg"
+                     ng-class="{true: 'has-error'}[nameDialog.username.$dirty &amp;&amp; nameDialog.username.$invalid]">
                     <label class="control-label" for="username">Enter playlist name:</label>
-                    <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" name="username" id="username" ng-model="newPlayList.name" ng-keyup="$event.keyCode == 13 && ok()" required="">
+                    <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" name="username"
+                           id="username" ng-model="newPlayList.name" ng-keyup="$event.keyCode == 13 && ok()"
+                           required="">
                 </div>
             </ng-form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="(nameDialog.$dirty &amp;&amp; nameDialog.$invalid) || nameDialog.$pristine" disabled="disabled">Save</button>
+            <button type="button" class="btn btn-primary" ng-click="ok()"
+                    ng-disabled="(nameDialog.$dirty &amp;&amp; nameDialog.$invalid) || nameDialog.$pristine"
+                    disabled="disabled">Save
+            </button>
         </div>
     </div>
 </script>
