@@ -22,7 +22,7 @@ angular.module('cpWebApp',
                     .when('/', {
                         templateUrl: 'views/main.html',
                         controller: 'MainCtrl',
-                        access: access.public
+                        access: access.anon
                     })
                     .when('/signin', {
                         templateUrl: 'views/signin.html',
@@ -59,28 +59,6 @@ angular.module('cpWebApp',
                         access: access.public
                     });
 
-            var interceptor = ['$location', '$q', function ($location, $q) {
-                function success(response) {
-                    return response;
-                }
-
-                function error(response) {
-
-                    if (response.status === 401) {
-                        $location.path('/login');
-                        return $q.reject(response);
-                    }
-                    else {
-                        return $q.reject(response);
-                    }
-                }
-
-                return function (promise) {
-                    return promise.then(success, error);
-                }
-            }];
-
-            $httpProvider.responseInterceptors.push(interceptor);
 
             growlProvider.globalTimeToLive(3000);
 
@@ -93,7 +71,7 @@ angular.module('cpWebApp',
                 if (!authService.authorize(next.access)) {
                     if (authService.isLoggedIn()) {
                         console.log("isLoggedIn");
-                        $location.path('/');
+                        $location.path('/player');
                     }
                     else {
                         $location.path('/signin');
