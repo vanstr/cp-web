@@ -130,6 +130,8 @@ angular.module('cpWebApp')
                 self.currentSongN = 0;
                 self.setPlaying(false);
                 self.setCurrentSong(null);
+
+                playerState++;
             }
             // TODO self.prev
 

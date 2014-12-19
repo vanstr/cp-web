@@ -8,16 +8,17 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-  .controller('HeaderCtrl', ['$rootScope', '$scope', 'authService',
-        function ($rootScope, $scope, authService) {
+  .controller('HeaderCtrl', ['$location', 'growl', '$scope', 'authService',
+        function ($location, growl, $scope, authService) {
 
             $scope.logout = function () {
                 authService.logout(
                     function (res) {
-                        window.location.href = "/";
+                        $location.path('/');
+                        growl.info("Logged out");
                     },
                     function (err) {
-                        $rootScope.error = "Failed to logout";
+                        growl.error("Failed to logout");
                     });
             };
 

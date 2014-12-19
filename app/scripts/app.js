@@ -54,6 +54,11 @@ angular.module('cpWebApp',
                         controller: 'PlayListManagementCtrl',
                         access: access.user
                     })
+                    .when('/profile', {
+                        templateUrl: 'views/profile.html',
+                        controller: 'ProfileCtrl',
+                        access: access.user
+                    })
                     .otherwise({
                         redirectTo: '/',
                         access: access.public

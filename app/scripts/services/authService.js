@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-  .service('authService', function($http, $log, sessionService, $q){
+  .service('authService', function($http, $log, sessionService, audioPlayer, $q){
 
     $log.debug(sessionService);
 
@@ -47,7 +47,7 @@ angular.module('cpWebApp')
             return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
         },
         register: function(user, success, error) {
-            $http.post('/api/user', user).success(function(res) {
+            $http.post('/api/register', user).success(function(res) {
                 changeUser(res);
                 success();
             }).error(error);
@@ -70,6 +70,20 @@ angular.module('cpWebApp')
                     username: '',
                     role: userRoles.public
                 });
+                audioPlayer.clear();
+
+                success();
+            }).error(error);
+        },
+        deleteAccount: function(success, error) {
+            $http.delete('/api/user').success(function(){
+                changeUser({
+                    id: '',
+                    username: '',
+                    role: userRoles.public
+                });
+                audioPlayer.clear();
+
                 success();
             }).error(error);
         },
