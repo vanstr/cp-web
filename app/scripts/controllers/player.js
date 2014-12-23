@@ -10,7 +10,7 @@
 angular.module('cpWebApp')
         .controller('PlayerCtrl', ['$scope', '$q', 'audioContentService', 'audioPlayer', function ($scope, $q, audioContentService, audioPlayer) {
 
-            audioContentService.getAllSongs(null);
+            audioContentService.getAllSongs();
             audioPlayer.currentSong = null;
             audioPlayer.currentPlayList = null;
             $scope.playlist = null;

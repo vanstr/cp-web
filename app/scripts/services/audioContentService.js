@@ -24,31 +24,18 @@ angular.module('cpWebApp')
                     deferred.resolve(self.allSongs);
                     return deferred.promise;
                 }else {
-                    return self.getAllSongs(null);
+                    return self.getAllSongs();
                 }
             };
 
             //  TODO in cp-core better rename getPlayList to getAllSongs
-            self.getAllSongs = function (pageToken) {
+            self.getAllSongs = function () {
                 $log.debug("getAllSongs:");
                 var deferred = $q.defer();
                 var apiUrl = '/api/playList';
-                if(pageToken){
-                    apiUrl += "?nextPageToken=" + pageToken;
-                }
                 $http.get(apiUrl).success(function (data) {
                     $log.debug(data);
-                    if(self.allSongs && self.allSongs.songs.length > 0){
-                        self.allSongs.songs = self.allSongs.songs.concat(data.songs);
-                        if(data.nextPageToken) {
-                            self.getAllSongs(data.nextPageToken);
-                        }
-                    }else {
-                        self.allSongs = data;
-                        if(data.nextPageToken){
-                            self.getAllSongs(data.nextPageToken);
-                        }
-                    }
+                    self.allSongs = data;
                     deferred.resolve(data);
                 }).error();
                 return deferred.promise;
