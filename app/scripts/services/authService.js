@@ -87,6 +87,26 @@ angular.module('cpWebApp')
                 success();
             }).error(error);
         },
+        changeUserPassword: function(pwd, newPwd, success2, error) {
+            var passwordsStructure = "{\"password\": \""+pwd+"\", \"new_password\": \""+newPwd+"\"}";
+
+            $log.debug(passwordsStructure);
+            $http.post('/api/user/password', passwordsStructure).success(function(res){
+                success2(res);
+            }).error(function(res){
+                $log.error("Failed to changeUserPassword" + res);
+                error(res);
+            });
+        },
+        addLoginAndPasswordForExistingUser: function(user, success2, error) {
+            $log.debug(user);
+            $http.post('/api/user/link', user).success(function(res){
+                success2(res);
+            }).error(function(res){
+                $log.error("Failed to login" + res);
+                error(res);
+            });
+        },
         dropboxAuthURL: function () {
             var deferred = $q.defer();
             $http.get('/api/dropbox/url/authorize').success(function (url) {

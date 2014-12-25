@@ -9,14 +9,14 @@
             </header>
             <form ng-submit="signUp()" name="signUpForm" role="form">
                 <div class="form-group">
-                    <input data-ng-model="username" required="required" placeholder="Username" class="form-control rounded input-lg text-center no-border">
+                    <input data-ng-model="username" required  placeholder="Username" class="form-control rounded input-lg text-center no-border">
                 </div>
                 <div class="form-group">
-                    <input data-ng-model="password" type="password" placeholder="Password" ng-minlength="4" class="form-control rounded input-lg text-center no-border">
+                    <input data-ng-model="password" required type="password" placeholder="Password" ng-minlength="4" class="form-control rounded input-lg text-center no-border">
                 </div>
                 <div class="checkbox i-checks m-b">
                     <label class="m-l">
-                        <input type="checkbox" required="required" checked=""><i></i> Agree the <a href="#">terms and policy</a>
+                        <input type="checkbox" required  checked=""><i></i> Agree the <a href="#">terms and policy</a>
                     </label>
                 </div>
 
