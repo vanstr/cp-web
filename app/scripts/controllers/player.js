@@ -8,7 +8,7 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-        .controller('PlayerCtrl', ['$scope', '$q', 'audioContentService', 'audioPlayer', function ($scope, $q, audioContentService, audioPlayer) {
+        .controller('PlayerCtrl', function ($scope, $q, audioContentService, audioPlayer) {
 
             audioContentService.getAllSongs();
             audioPlayer.currentSong = null;
@@ -63,4 +63,4 @@ angular.module('cpWebApp')
                 audioPlayer.setPlaying(false);
             };
 
-        }]);
+        });

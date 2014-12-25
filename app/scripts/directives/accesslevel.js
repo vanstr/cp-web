@@ -7,7 +7,7 @@
  * # accessLevel
  */
 angular.module('cpWebApp')
-        .directive('accessLevel', ['authService', function( authService) {
+        .directive('accessLevel', function( authService) {
             return {
                 restrict: 'A',
                 link: function($scope, element, attrs) {
@@ -38,4 +38,4 @@ angular.module('cpWebApp')
                     }
                 }
             };
-        }]);
+        });

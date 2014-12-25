@@ -1,5 +1,5 @@
-angular.module('cpWebApp').controller('ModalInstanceCtrl',['$scope', '$modalInstance', '$location',
-    function ($scope, $modalInstance, $location) {
+angular.module('cpWebApp')
+    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, $location) {
 
         $scope.ok = function () {
             $modalInstance.close($scope.newPlayList.name);
@@ -9,4 +9,4 @@ angular.module('cpWebApp').controller('ModalInstanceCtrl',['$scope', '$modalInst
             $modalInstance.dismiss('cancel');
             $location.path("/player");
         };
-    }]);
+    });

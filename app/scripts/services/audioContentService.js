@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-        .service('audioContentService', ['$log', '$q', '$http', 'utilsService', function ($log, $q, $http, utilsService) {
+        .service('audioContentService',  function ($log, $q, $http, utilsService) {
 
             var self = this;
 
@@ -174,4 +174,4 @@ angular.module('cpWebApp')
             };
 
 
-        }]);
+        });

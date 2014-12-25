@@ -8,8 +8,7 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-  .controller('SignupCtrl',
-    ['$rootScope', '$scope', '$location', '$window', 'authService', 'growl', function ($rootScope, $scope, $location, $window, authService, growl) {
+  .controller('SignupCtrl',  function ($rootScope, $scope, $location, $window, authService, growl) {
 
         $scope.signUp = function () {
             authService.register({
@@ -25,4 +24,4 @@ angular.module('cpWebApp')
                     });
         };
 
-    }]);
+    });

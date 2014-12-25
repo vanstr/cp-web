@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-        .service('audioPlayer', [ 'audioContentService', function audioPlayer(audioContentService) {
+        .service('audioPlayer', function audioPlayer(audioContentService) {
 
             var self = this;
 
@@ -132,9 +132,9 @@ angular.module('cpWebApp')
                 self.setCurrentSong(null);
 
                 playerState++;
-            }
+            };
             // TODO self.prev
 
             return self;
 
-        }]);
+        });
