@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-  .service('authService', function($http, $log, sessionService, audioPlayer, $q){
+  .service('authService', function($http, $rootScope, $log, sessionService, audioPlayer, $q){
 
     $log.debug(sessionService);
 
@@ -30,6 +30,7 @@ angular.module('cpWebApp')
 
     function changeUser(user) {
        angular.extend(currentUser, user);
+       $rootScope.user = currentUser;
     }
 
     $log.debug(currentUser);
@@ -71,7 +72,6 @@ angular.module('cpWebApp')
                     role: userRoles.public
                 });
                 audioPlayer.clear();
-
                 success();
             }).error(error);
         },
@@ -83,7 +83,6 @@ angular.module('cpWebApp')
                     role: userRoles.public
                 });
                 audioPlayer.clear();
-
                 success();
             }).error(error);
         },
@@ -103,7 +102,17 @@ angular.module('cpWebApp')
             $http.post('/api/user/link', user).success(function(res){
                 success2(res);
             }).error(function(res){
-                $log.error("Failed to login" + res);
+                $log.error("Failed to addLoginAndPasswordForExistingUser" + res);
+                error(res);
+            });
+        },
+        updateUserInfo: function(user, success2, error) {
+            $log.debug(user);
+            $http.post('/api/user/info', user).success(function(res){
+                success2(res);
+                updateUser();
+            }).error(function(res){
+                $log.error("Failed to updateUserInfo" + res);
                 error(res);
             });
         },

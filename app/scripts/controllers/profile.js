@@ -8,14 +8,13 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-    .controller('ProfileCtrl',
-    ['$scope', '$location', 'authService', 'growl', function ($scope, $location, authService, growl) {
-        $scope.rememberme = true;
-        $scope.user = authService.user;
+    .controller('ProfileCtrl',  function ($scope, $rootScope, $location, authService, growl) {
 
         $scope.currentPassword = "";
         $scope.newPassword = "";
         $scope.newLogin = "";
+        $scope.name = $rootScope.user.name;
+        $scope.email = $rootScope.user.email;
 
         $scope.deleteAccount = function () {
             console.log("delete Account");
@@ -67,6 +66,22 @@ angular.module('cpWebApp')
             );
         };
 
+
+        $scope.updatePersonalInfo = function () {
+            console.log("updatePersonalInfo");
+
+            var user = {name: $scope.name, email: $scope.email};
+            authService.updateUserInfo(
+                user,
+                function (res) {
+                    growl.success("Personal info updated");
+                },
+                function (err) {
+                    growl.error("Failed to update personal info: " + err);
+                }
+            );
+        };
+
         var automaticLogoutToCheckPwd = function () {
             authService.logout(
                 function (res) {
@@ -79,4 +94,4 @@ angular.module('cpWebApp')
             );
         };
 
-    }]);
+    });
