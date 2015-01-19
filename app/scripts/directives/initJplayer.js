@@ -7,7 +7,7 @@
  * # initPlaylist
  */
 angular.module('cpWebApp')
-        .directive('initJplayer', ['audioPlayer', function (audioPlayer) {
+        .directive('initJplayer', function (audioPlayer) {
             return {
                 template: '<div></div>',
                 restrict: 'E',
@@ -117,4 +117,4 @@ angular.module('cpWebApp')
 
                 }
             };
-        }]);
+        });

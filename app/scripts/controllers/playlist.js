@@ -8,9 +8,7 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-    .controller('PlayListCtrl',
-        ['$rootScope', '$scope', 'audioContentService', '$routeParams', '$modal', '$location', 'audioPlayer', 'utilsService',
-        function ($rootScope, $scope, audioContentService, $routeParams, $modal, $location, audioPlayer, utilsService) {
+    .controller('PlayListCtrl',function ($rootScope, $scope, audioContentService, $routeParams, $modal, $location, audioPlayer, utilsService) {
 
             $scope.styles = new Array();
             $scope.open = function () {
@@ -150,4 +148,4 @@ angular.module('cpWebApp')
                 audioPlayer.currentPlayList = audioContentService.allSongs;
             }
 
-        }]);
+        });

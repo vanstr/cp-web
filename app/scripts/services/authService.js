@@ -8,7 +8,7 @@
  * Service in the cpWebApp.
  */
 angular.module('cpWebApp')
-  .service('authService', function($http, $log, sessionService, $q){
+  .service('authService', function($http, $rootScope, $log, sessionService, audioPlayer, $q){
 
     $log.debug(sessionService);
 
@@ -30,6 +30,7 @@ angular.module('cpWebApp')
 
     function changeUser(user) {
        angular.extend(currentUser, user);
+       $rootScope.user = currentUser;
     }
 
     $log.debug(currentUser);
@@ -47,7 +48,7 @@ angular.module('cpWebApp')
             return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;
         },
         register: function(user, success, error) {
-            $http.post('/api/user', user).success(function(res) {
+            $http.post('/api/register', user).success(function(res) {
                 changeUser(res);
                 success();
             }).error(error);
@@ -70,8 +71,50 @@ angular.module('cpWebApp')
                     username: '',
                     role: userRoles.public
                 });
+                audioPlayer.clear();
                 success();
             }).error(error);
+        },
+        deleteAccount: function(success, error) {
+            $http.delete('/api/user').success(function(){
+                changeUser({
+                    id: '',
+                    username: '',
+                    role: userRoles.public
+                });
+                audioPlayer.clear();
+                success();
+            }).error(error);
+        },
+        changeUserPassword: function(pwd, newPwd, success2, error) {
+            var passwordsStructure = "{\"password\": \""+pwd+"\", \"new_password\": \""+newPwd+"\"}";
+
+            $log.debug(passwordsStructure);
+            $http.post('/api/user/password', passwordsStructure).success(function(res){
+                success2(res);
+            }).error(function(res){
+                $log.error("Failed to changeUserPassword" + res);
+                error(res);
+            });
+        },
+        addLoginAndPasswordForExistingUser: function(user, success2, error) {
+            $log.debug(user);
+            $http.post('/api/user/link', user).success(function(res){
+                success2(res);
+            }).error(function(res){
+                $log.error("Failed to addLoginAndPasswordForExistingUser" + res);
+                error(res);
+            });
+        },
+        updateUserInfo: function(user, success2, error) {
+            $log.debug(user);
+            $http.post('/api/user/info', user).success(function(res){
+                success2(res);
+                updateUser();
+            }).error(function(res){
+                $log.error("Failed to updateUserInfo" + res);
+                error(res);
+            });
         },
         dropboxAuthURL: function () {
             var deferred = $q.defer();

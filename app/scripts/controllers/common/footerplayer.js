@@ -7,6 +7,6 @@
  * This controller pass variable audioPlayer.playerState to initJplayer directive which trigger changes from it
  */
 angular.module('cpWebApp')
-        .controller('FooterPlayerCtrl', [ '$scope','audioPlayer', function ($scope, audioPlayer) {
+        .controller('FooterPlayerCtrl', function ($scope, audioPlayer) {
             $scope.audioPlayer = audioPlayer;
-        }]);
+        });

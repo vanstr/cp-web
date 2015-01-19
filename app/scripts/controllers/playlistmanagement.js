@@ -1,7 +1,5 @@
 angular.module('cpWebApp')
-    .controller('PlayListManagementCtrl',
-    ['$rootScope', '$scope', 'audioContentService', '$routeParams', '$modal', '$location', 'audioPlayer',
-        function ($rootScope, $scope, audioContentService, $routeParams, $modal, $location, audioPlayer) {
+    .controller('PlayListManagementCtrl', function ($rootScope, $scope, audioContentService, $routeParams, $modal, $location, audioPlayer) {
 
             $scope.audioContentService = audioContentService;
             $scope.playlist = audioContentService.allSongs;
@@ -45,4 +43,4 @@ angular.module('cpWebApp')
                 audioPlayer.setPlaying(false);
             };
 
-        }]);
+        });

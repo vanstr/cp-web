@@ -8,8 +8,7 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-    .controller('SigninCtrl',
-        ['$rootScope', '$scope', '$location', '$window', 'authService', 'growl', function ($rootScope, $scope, $location, $window, authService, growl) {
+    .controller('SigninCtrl', function ($rootScope, $scope, $location, $window, authService, growl) {
             $scope.rememberme = true;
             $scope.user = authService.currentUser;
 
@@ -43,4 +42,4 @@ angular.module('cpWebApp')
             };
 
 
-        }]);
+        });

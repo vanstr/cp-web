@@ -8,8 +8,7 @@
  * Controller of the cpWebApp
  */
 angular.module('cpWebApp')
-    .controller('PlayListsCtrl', ['$rootScope', '$scope', 'audioContentService', 'authService',
-        function ($rootScope, $scope, audioContentService, authService) {
+    .controller('PlayListsCtrl', function ($rootScope, $scope, audioContentService, authService) {
 
             if (authService.isLoggedIn()) {
                 audioContentService.getPlayLists().then(function(playLists){
@@ -35,4 +34,4 @@ angular.module('cpWebApp')
                     }
                 }
             });
-    }]);
+    });
