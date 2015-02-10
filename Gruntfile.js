@@ -258,19 +258,20 @@ module.exports = function (grunt) {
     //   }
     // },
     // concat: {
-    //   dist: {}
+    //   dist: {
+    //   }
     // },
 
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
+    // imagemin: {
+    //   dist: {
+    //     files: [{
+    //       expand: true,
+    //       cwd: '<%= yeoman.app %>/images',
+    //       src: '{,*/}*.{png,jpg,jpeg,gif}',
+    //       dest: '<%= yeoman.dist %>/images'
+    //     }]
+    //   }
+    // },
 
     svgmin: {
       dist: {
@@ -336,7 +337,7 @@ module.exports = function (grunt) {
             'views/{,*/}*.html',
 			'partials/{,*/}*.html',
             'images/*',
-            'scripts/**/*',
+            //'scripts/**/*',
             'fonts/*'
           ]
         }, {
@@ -437,9 +438,9 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     //'uglify',
-    //'filerev',
+    'filerev',
     'usemin'
-    //,'htmlmin'
+    //'htmlmin'
   ]);
 
   grunt.registerTask('default', [
