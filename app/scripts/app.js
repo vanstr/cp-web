@@ -59,6 +59,11 @@ angular.module('cpWebApp',
                         controller: 'ProfileCtrl',
                         access: access.user
                     })
+                    .when('/logout', {
+                      template: ' ',
+                      controller: 'LogoutCtrl',
+                      access: access.user
+                    })
                     .otherwise({
                         redirectTo: '/',
                         access: access.public
